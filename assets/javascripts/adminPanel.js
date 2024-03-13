@@ -29,19 +29,43 @@ function detectUser(valueFromPrompt, passwordFromPrompt){
     }
 }
 
-adminLoginButton.addEventListener('click', function(e){
-    e.preventDefault();
-    detectUser(adminUsername.value, adminPassword.value)
-    adminUsername.value = ""
-    adminPassword.value = ""
-})
+// adminLoginButton.addEventListener('click', function(e){
+//     e.preventDefault();
+//     detectUser(adminUsername.value, adminPassword.value)
+//     adminUsername.value = ""
+//     adminPassword.value = ""
+// })
 
-window.addEventListener('keyup', function(e){
-    e.preventDefault();
-    if(e.key == 'Enter' && adminUsername.value && adminPassword.value ){
-        detectUser(adminUsername.value, adminPassword.value)
-        adminUsername.value = ""
-        adminPassword.value = ""
+// window.addEventListener('keyup', function(e){
+//     e.preventDefault();
+//     if(e.key == 'Enter' && adminUsername.value && adminPassword.value ){
+//         detectUser(adminUsername.value, adminPassword.value)
+//         adminUsername.value = ""
+//         adminPassword.value = ""
+//     }
+// })
+// end of detecting admins
+
+
+// Google Books API
+const valueFromAPI = document.querySelector('#valueFromAPI')
+const valueFromAPIButton = document.querySelector('#valueFromAPIButton')
+
+valueFromAPIButton.addEventListener('click', function(e){
+    if(valueFromAPI.value.trim()){
+        searchBooks(valueFromAPI.value.trim())
     }
 })
-// end of detecting admins
+
+function searchBooks(element) {
+    var url = `https://www.googleapis.com/books/v1/volumes?q=${element}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        })
+        .catch(error => {
+            console.log("Error fetching data:", error);
+        });
+}

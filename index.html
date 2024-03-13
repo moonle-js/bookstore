@@ -6,6 +6,9 @@
     <meta name="author" content="Moonle-js, sevincovski, narmin, saguba, seyid">
     <meta name="keywords" content="books, most popular books, library">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fonr awesome link -->
+    <script src="https://kit.fontawesome.com/c6c78699a0.js" crossorigin="anonymous"></script>
+
     <!-- Icon for admin panel -->
     <link rel="icon" href="">
     <!-- Styles for admin panel -->
@@ -44,11 +47,10 @@
 
         <!-- Right side for admin -->
         <section id="mainContentForAdmin">
-            <div id="loginCard">
+            <!-- <div id="loginCard">
                 <h1>
                     Welcome Admin
                 </h1>
-                <!-- Admin credentials will be checked here -->
                 <form id="adminLoginForm">
 
                     <input 
@@ -68,6 +70,49 @@
                         Join
                     </button>
                 </form>
+            </div> -->
+
+            <div id="adminMainPanel">
+                <!-- Logo side for admin -->
+                <div id="adminLogo">
+                    <a href="">
+                        <img 
+                        src="./assets/images/adminPanel/adminUserLogo.png" 
+                        alt="adminUser"
+                        title="adminUser">
+                        <p>
+                            Admin
+                        </p>
+                    </a>
+                </div>
+
+                <div id="adminMainPanelElements">
+                    <!-- Booka adding section from API -->
+                    <div id="addBookSection">
+                        <h3>
+                            Add book
+                        </h3>
+                        <label for="valueFromAPI">
+                            Search book
+                        </label>
+                        <div id="searchElements">
+                            <input 
+                            type="text" 
+                            name="valueFromAPI" 
+                            id="valueFromAPI"
+                            placeholder="Add name of book">
+                            
+                            <button id="valueFromAPIButton">
+                                <img src="./assets/images/adminPanel/searchIcon.png" alt="">
+                            </button>
+                            
+                        </div>
+
+                        <!-- <div id="relatedSearches"></div> -->
+                        
+                    </div>
+                    <!-- end of book adding section from API -->
+                </div>
             </div>
         </section>
         

@@ -6,7 +6,6 @@
 /* Actual codes for page */
 
 main{
-    padding-top: 75px;
     font-size: 14px;
     display: flex;
     justify-content: flex-start;
@@ -15,6 +14,7 @@ main{
 }
     /* Admin logo side */
     section#navigationSide{
+        padding-top: 75px;
         max-width: 355px;
         width: 30%;
         height: 100%;
@@ -84,9 +84,9 @@ main{
         position: relative;
         justify-content: flex-start;
         align-items: flex-start;
-        padding-top: 200px;
     }
         #loginCard{
+            padding-top: 100px;
             display: flex;
             margin-left: 200px;
             flex-direction: column;
@@ -155,3 +155,130 @@ main{
                     color: var(--orange_background);
                 }
     /* Login side ended */
+
+    #adminMainPanel{
+        position: relative;
+        column-gap: 40px;
+        width: 100%;
+        min-height: 100vh;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background: var(--body_background);
+    }
+        #adminLogo{
+            font-family: "Montserrat";
+            position: absolute;
+            right: 25px;
+            top: 40px;
+            width: 20%;
+            max-width: 75px;
+            min-height: 32px;
+            height: 32px;
+            cursor: pointer;
+        }
+        #adminLogo a{
+            text-decoration: none;
+            font-size: 1em;
+            display: flex;
+            width: 100%;
+            height: 100%;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+            #adminLogo img{
+                width: 25px;
+                padding-bottom: 5px;
+                height: 37px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            #adminLogo p{
+                color: var(--black_text);
+                text-decoration: none;
+                width: calc(100%-35px);
+                height: 100%;
+                min-height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+/* Admin logo side is done */
+#adminMainPanelElements{
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    padding-left: 30px;
+}
+    #addBookSection{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        row-gap: 10px;
+        width: 100%;
+    }
+    #addBookSection *{
+        font-family: "Montserrat";
+    }
+        #addBookSection h3{
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--black_text);
+            margin-bottom: 20px;
+        }
+        #addBookSection label{
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+        #searchElements{
+            width: 80%;
+            max-width: 470px;
+            height: 45px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            column-gap: 6px;
+        }
+            #searchElements input{
+                width: 80%;
+                transition: .4s all ease;
+                max-width: 395px;
+                height: 100%;
+                border: 2px solid var(--gray_placeholder);
+                border-radius: 25px;
+                padding-left: 33px;
+            }
+            #searchElements input:focus{
+                border: 2px solid var(--orange_background);
+            }
+            #searchElements button{
+                width: 20%;
+                max-width: 63px;
+                border-radius: 30px;
+                background: var(--orange_background);
+                height: 100%;
+                font-size: 1em;
+                color: var(--white_text);
+                cursor: pointer;
+                transition: .4s all ease;
+            }
+            #searchElements button:hover{
+                background: var(--gray_background);
+            }
+                #searchElements button img{
+                    width: 20px;
+                    height: 25px;
+                }
+/* Related search from API */
+#relatedSearches{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 10px;
+    align-items: flex-start;
+    row-gap: 8px;
+}
