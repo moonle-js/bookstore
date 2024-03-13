@@ -112,6 +112,57 @@
                         
                     </div>
                     <!-- end of book adding section from API -->
+
+                    <div id="bookFormSection">
+                        <label id="mainLabel" for="bookNameInput">
+                            Book form
+                        </label>
+
+                        <form class="bookFormCard">
+                            <div>
+                                <label for="bookNameInput">
+                                    Book Name
+                                </label>
+                                <input type="text" id="bookNameInput" placeholder="Add name of Book">
+                            </div>
+
+                            <div>
+                                <label for="authorNameInput">
+                                    Author Name
+                                </label>
+                                <input type="text" id="authorNameInput" placeholder="Add name of Author">
+                            </div>
+
+                            <div>
+                                <label for="bookImageUrlInput">
+                                    Book Image Url
+                                </label>
+                                <input type="text" id="bookImageUrlInput" placeholder="Add path to Image of Book">
+                            </div>
+
+                            <div id="descriptionBlock">
+                                <label for="bookDescription">
+                                    Description
+                                </label>
+                                <textarea 
+                                type="text" 
+                                id="bookDescription" 
+                                placeholder="Add description to book"
+                                ></textarea>
+                            </div>
+
+                            <div>
+                                <label for="bookTypeInput">
+                                    Book Type
+                                </label>
+                                <input type="text" id="bookTypeInput" placeholder="Add description to page">
+                            </div>
+
+                            <button id="addBookButton">
+                                Add
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
