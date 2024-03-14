@@ -22,7 +22,124 @@ function detectUser(valueFromPrompt, passwordFromPrompt){
             if(defValue == 0){
                 alert('user netu')
             }else{
-                alert('Please enter');
+                // document.querySelector('#mainContentForAdmin').innerHTML = `
+                //                                 <div id="adminMainPanel">
+                //                                 <!-- Logo side for admin -->
+                //                                 <div id="adminLogo">
+                //                                     <a href="">
+                //                                         <img 
+                //                                         src="./assets/images/adminPanel/adminUserLogo.png" 
+                //                                         alt="adminUser"
+                //                                         title="adminUser">
+                //                                         <p>
+                //                                             Admin
+                //                                         </p>
+                //                                     </a>
+                //                                 </div>
+
+                //                                 <div id="adminMainPanelElements">
+                //                                     <!-- Book adding section from API -->
+                //                                     <div id="addBookSection">
+                //                                         <h3>
+                //                                             Add book
+                //                                         </h3>
+                //                                         <label for="valueFromAPI">
+                //                                             Search book
+                //                                         </label>
+                //                                         <div id="searchElements">
+                //                                             <input 
+                //                                             type="text" 
+                //                                             name="valueFromAPI" 
+                //                                             id="valueFromAPI"
+                //                                             placeholder="Add name of book">
+                                                            
+                //                                             <button id="valueFromAPIButton">
+                //                                                 <img src="./assets/images/adminPanel/searchIcon.png" alt="">
+                //                                             </button>
+                                                            
+                //                                         </div>
+                //                                         <!-- Div with search results -->
+                //                                         <div id="relatedSearches"></div>
+                //                                         <!-- Div with search results -->
+                                                        
+                //                                     </div>
+                //                                     <!-- end of book adding section from API -->
+
+                //                                     <!-- Setting Books Initials -->
+                //                                     <div id="bookFormSection">
+                //                                         <label id="mainLabel" for="bookNameInput">
+                //                                             Book form
+                //                                         </label>
+
+                //                                         <form class="bookFormCard">
+                //                                             <div>
+                //                                                 <label for="bookNameInput">
+                //                                                     Book Name
+                //                                                 </label>
+                //                                                 <input type="text" id="bookNameInput" placeholder="Add name of Book">
+                //                                             </div>
+
+                //                                             <div>
+                //                                                 <label for="authorNameInput">
+                //                                                     Author Name
+                //                                                 </label>
+                //                                                 <input type="text" id="authorNameInput" placeholder="Add name of Author">
+                //                                             </div>
+
+                //                                             <div>
+                //                                                 <label for="bookImageUrlInput">
+                //                                                     Book Image Url
+                //                                                 </label>
+                //                                                 <input type="text" id="bookImageUrlInput" placeholder="Add path to Image of Book">
+                //                                             </div>
+
+                //                                             <div id="descriptionBlock">
+                //                                                 <label for="bookDescription">
+                //                                                     Description
+                //                                                 </label>
+                //                                                 <textarea 
+                //                                                 type="text" 
+                //                                                 id="bookDescription" 
+                //                                                 placeholder="Add description to book"
+                //                                                 ></textarea>
+                //                                             </div>
+
+                //                                             <div>
+                //                                                 <label for="bookReleaseDate">
+                //                                                     Book Type
+                //                                                 </label>
+                //                                                 <input type="number" id="bookReleaseDate" placeholder="Add release date">
+                //                                             </div>
+
+                //                                             <div id="newOrNotDiv">
+                //                                                 <label for="newOrNot">New</label>
+                //                                                 <input type="checkbox" id="newOrNot">
+                //                                             </div>
+
+                //                                             <div>
+                //                                                 <label for="bookTypeInput">
+                //                                                     Book Type
+                //                                                 </label>
+                //                                                 <select type="text" id="bookTypeInput" placeholder="Add Type of book">
+                //                                                 </select>
+                //                                             </div>
+
+                //                                             <button id="addBookButton">
+                //                                                 Add
+                //                                             </button>
+                //                                         </form>
+                //                                     </div>
+                //                                     <!-- Setting Books Initials -->
+
+                                                    
+                //                                 </div>
+                //                             </div>`
+
+                const elementOfScript = document.createElement('script')
+                elementOfScript.setAttribute('src', './assets/javascripts/secondAdmin.js')
+                document.querySelector('body').append(elementOfScript)
+                defValue = 0;
+                defValue = 0;
             }
             }
         })
@@ -50,6 +167,13 @@ function detectUser(valueFromPrompt, passwordFromPrompt){
 // Google Books API
 const valueFromAPI = document.querySelector('#valueFromAPI')
 const valueFromAPIButton = document.querySelector('#valueFromAPIButton')
+// divs that will be fullfilled
+const bookNameInput = document.querySelector('#bookNameInput')
+const authorNameInput = document.querySelector('#authorNameInput')
+const bookImageUrlInput = document.querySelector('#bookImageUrlInput')
+const bookDescription = document.querySelector('#bookDescription')
+const bookReleaseDate = document.querySelector('#bookReleaseDate')
+const bookTypeInput = document.querySelector('#bookTypeInput')
 
 valueFromAPIButton.addEventListener('click', function(e){
     if(valueFromAPI.value.trim()){
@@ -57,15 +181,77 @@ valueFromAPIButton.addEventListener('click', function(e){
     }
 })
 
+window.addEventListener('keyup', function(e){
+    e.preventDefault();
+    if(valueFromAPI.value.trim() && e.key != "Backspase"){
+        document.querySelector('#relatedSearches').style.display = "flex"
+        searchBooks(valueFromAPI.value.trim())
+    }
+
+    if(e.key == "Backspace"){
+        document.querySelector('#relatedSearches').style.display = "none"
+    }
+})
+
+
 function searchBooks(element) {
     var url = `https://www.googleapis.com/books/v1/volumes?q=${element}`;
 
     fetch(url)
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+            document.querySelector('#relatedSearches').innerHTML = ""
+            for(let i in data.items){
+                document.querySelector('#relatedSearches').innerHTML += `
+                    <div id="${data.items[i].id}">${data.items[i].volumeInfo.title}</div>
+                `
+                document.querySelectorAll('#relatedSearches div').forEach(function(item){
+                    item.addEventListener('click', function(){
+                        console.log(this.id)
+                        fetch(`https://www.googleapis.com/books/v1/volumes/${this.id}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                console.log(data)
+                                //setting data to propmts
+                                bookNameInput.value = `${data.volumeInfo.title}`
+                                authorNameInput.value = `${data.volumeInfo.authors}`
+                                bookImageUrlInput.value = `${data.volumeInfo.imageLinks.medium}`
+                                bookDescription.value = `${data.volumeInfo.description}`
+                                bookReleaseDate.value = `${data.volumeInfo.publishedDate}`
+
+
+                                document.querySelector('#relatedSearches').style.display = "none"
+                                document.querySelector('#relatedSearches').innerHTML = ""
+                                document.querySelector('#relatedSearches').value = ""
+                                valueFromAPI.value = ""
+                                
+                            })
+                    })
+                })
+            }
         })
         .catch(error => {
             console.log("Error fetching data:", error);
         });
 }
+
+
+// Adding about us to firebase
+
+var sendAboutForm = document.querySelector('#sendAboutForm')
+var titleAboutStore = document.querySelector('#titleAboutStore')
+var aboutImageURL = document.querySelector('#aboutImageURL')
+var aboutDescription = document.querySelector('#aboutDescription')
+
+sendAboutForm.addEventListener('click', function(e){
+    e.preventDefault();
+    if(titleAboutStore.value.trim(), aboutImageURL.value.trim(), aboutDescription.value.trim()){
+        set(ref(dataBase, 'aboutUs/title'), titleAboutStore.value.trim())
+        set(ref(dataBase, 'aboutUs/imageURL'), aboutImageURL.value.trim())
+        set(ref(dataBase, 'aboutUs/description'), aboutDescription.value.trim())
+
+        titleAboutStore.value = ""
+        aboutImageURL.value = ""
+        aboutDescription.value = ""
+    }
+})
