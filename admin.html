@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- meta tags -->
+    <meta charset="UTF-8">
+    <meta name="author" content="Moonle-js, sevincovski, narmin, saguba, seyid">
+    <meta name="keywords" content="books, most popular books, library">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fonr awesome link -->
+    <script src="https://kit.fontawesome.com/c6c78699a0.js" crossorigin="anonymous"></script>
+
+    <!-- Icon for admin panel -->
+    <link rel="icon" href="">
+    <!-- Styles for admin panel -->
+    <link rel="stylesheet" href="./assets/css/admin.css">
+    <!-- Script for admin panel -->
+    <script src="./assets/javascripts/adminPanel.js" type="module" defer></script>
+
+    <title>Bookstore Admin</title>
+
+</head>
+<body>
+    <!-- begining of content -->
+    
+    <main id="adminMain">
+        <!-- Navigation side for admin -->
+        <section id="navigationSide">
+            <a href="#" id="adminLogoLink">
+                <img 
+                src="./assets/images/adminPanel/bookstoreLogo.png" 
+                alt="loginToMain"
+                title="loginToMain"
+                id="loginToMain"
+                >
+                <div id="adminLogoTextBlock">
+                    <span>
+                        library
+                    </span>
+                    <p>
+                        Admin Panel
+                    </p>
+                </div>
+            </a>
+
+
+        </section>
+
+        <!-- Right side for admin -->
+        <section id="mainContentForAdmin">
+            <!-- <div id="loginCard">
+                <h1>
+                    Welcome Admin
+                </h1>
+                <form id="adminLoginForm">
+
+                    <input 
+                    type="text" 
+                    name="adminUsername" 
+                    id="adminUsername" 
+                    placeholder="Username" 
+                    required>
+
+                    <input 
+                    type="password" 
+                    name="adminPassword" 
+                    id="adminPassword" 
+                    placeholder="Password">
+
+                    <button id="adminLoginButton">
+                        Join
+                    </button>
+                </form>
+            </div> -->
+
+            <div id="adminMainPanel">
+                <!-- Logo side for admin -->
+                <div id="adminLogo">
+                    <a href="">
+                        <img 
+                        src="./assets/images/adminPanel/adminUserLogo.png" 
+                        alt="adminUser"
+                        title="adminUser">
+                        <p>
+                            Admin
+                        </p>
+                    </a>
+                </div>
+
+                <div id="adminMainPanelElements">
+                    <!-- Book adding section from API -->
+                    <div id="addBookSection">
+                        <h3>
+                            Add book
+                        </h3>
+                        <label for="valueFromAPI">
+                            Search book
+                        </label>
+                        <div id="searchElements">
+                            <input 
+                            type="text" 
+                            name="valueFromAPI" 
+                            id="valueFromAPI"
+                            placeholder="Add name of book">
+                            
+                            <button id="valueFromAPIButton">
+                                <img src="./assets/images/adminPanel/searchIcon.png" alt="">
+                            </button>
+                            
+                        </div>
+
+                        <!-- <div id="relatedSearches"></div> -->
+                        
+                    </div>
+                    <!-- end of book adding section from API -->
+
+                    <div id="bookFormSection">
+                        <label id="mainLabel" for="bookNameInput">
+                            Book form
+                        </label>
+
+                        <form class="bookFormCard">
+                            <div>
+                                <label for="bookNameInput">
+                                    Book Name
+                                </label>
+                                <input type="text" id="bookNameInput" placeholder="Add name of Book">
+                            </div>
+
+                            <div>
+                                <label for="authorNameInput">
+                                    Author Name
+                                </label>
+                                <input type="text" id="authorNameInput" placeholder="Add name of Author">
+                            </div>
+
+                            <div>
+                                <label for="bookImageUrlInput">
+                                    Book Image Url
+                                </label>
+                                <input type="text" id="bookImageUrlInput" placeholder="Add path to Image of Book">
+                            </div>
+
+                            <div id="descriptionBlock">
+                                <label for="bookDescription">
+                                    Description
+                                </label>
+                                <textarea 
+                                type="text" 
+                                id="bookDescription" 
+                                placeholder="Add description to book"
+                                ></textarea>
+                            </div>
+
+                            <div>
+                                <label for="bookReleaseDate">
+                                    Book Type
+                                </label>
+                                <input type="number" id="bookReleaseDate" placeholder="Add release date">
+                            </div>
+
+                            <div id="newOrNotDiv">
+                                <label for="newOrNot">New</label>
+                                <input type="checkbox" id="newOrNot">
+                            </div>
+
+                            <div>
+                                <label for="bookTypeInput">
+                                    Book Type
+                                </label>
+                                <select type="text" id="bookTypeInput" placeholder="Add Type of book">
+                                </select>
+                            </div>
+
+                            <button id="addBookButton">
+                                Add
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+
+</body>
+</html>

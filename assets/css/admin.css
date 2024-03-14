@@ -344,15 +344,44 @@ main{
                 font-family: "Roboto";
                 font-size: 1.2em;
             }
-            .bookFormCard div input, .bookFormCard div textarea{
+            .bookFormCard div input,
+            .bookFormCard div textarea,
+            .bookFormCard div select{
                 border-radius: 15px;
                 padding-left: 15px;
+                padding-right: 15px;
                 height: 60%;
                 box-shadow: 0px 0px 10px var(--gray_background);
                 max-height: 40px;
                 font-size: .9em;
                 color: var(--gray_background);
             }
+            /* newOrNotDiv */
+            #newOrNotDiv{
+                flex-direction: row;
+                height: 50px;
+                align-items: center;
+                width: 20%;
+                max-width: 50px;
+            }
+            #newOrNot{
+                width: 20px;
+                height: 20px;
+            }
+            .bookFormCard div select{
+                appearance: none;
+                outline: none;
+                cursor: pointer;
+                font-family: "Monsterrat";
+                font-size: 1em;
+                text-align: center;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                outline: none;
+                border: none;
+            }
+
+            
             .bookFormCard div textarea{
               padding-top: 10px;  
               min-height: 120px;
