@@ -435,9 +435,12 @@ window.onload = function(){
 
 
 
+document.querySelector('#hamburger').addEventListener('click', function(){
+    document.querySelector('#navigationSide').style.transform = "translateX(0px)"
+})
+
 // close navigation when phone tab
 
 document.querySelector('#closeNavigation').addEventListener('click', function(){
-    console.log('aha')
     document.querySelector('#navigationSide').style.transform = "translateX(-380px)"
 })

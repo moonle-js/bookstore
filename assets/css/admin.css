@@ -17,6 +17,7 @@ main{
 }
     /* Admin logo side */
     section#navigationSide{
+        z-index: 5000;
         transition: .4s all ease;
         position: fixed;
         z-index: 10;
@@ -201,15 +202,26 @@ main{
         background: var(--body_background);
     }
         #adminLogo{
+            z-index: 2;
             font-family: "Montserrat";
             position: absolute;
             right: 25px;
             top: 40px;
             width: 20%;
             max-width: 75px;
+            margin-right: -10px !important;
             min-height: 32px;
             height: 32px;
             cursor: pointer;
+            padding-left: 16px;
+        }
+        #hamburger{
+            align-self: flex-end !important;
+            position: absolute;
+            display: none !important;
+        }
+        #hamburger img{
+            width: 30px !important;
         }
         #adminLogo a{
             text-decoration: none;
@@ -711,5 +723,11 @@ main{
     #adminMainPanelElements{
         width: 100% !important;
         padding: 10px;
+    }
+    #aadmin{
+        display: none !important;
+    }
+    #hamburger{
+        display: flex !important;
     }
 }
