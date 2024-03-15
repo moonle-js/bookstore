@@ -10,25 +10,38 @@ main{
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-    background: var(--red_background);
+    background: var(--body_background);
+}
+*{
+    scroll-behavior: smooth;
 }
     /* Admin logo side */
     section#navigationSide{
+        transition: .4s all ease;
         position: fixed;
         z-index: 10;
         background: var(--red_background);
         padding-top: 75px;
-        max-width: 355px;
-        width: 30%;
-        min-width: 350px;
         height: 100%;
         min-height: calc(100vh - 75px);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        row-gap: 40px;
+        row-gap: 20px;
     }
+    #closeNavigation{
+        display: none;
+        font-size: 2em;
+        font-weight: 900;
+        position: absolute;
+        right: 20px;
+        top: 75px;
+        color: var(--white_text);
+        cursor: pointer;
+        font-family: "Roboto";
+    }
+
         #adminLogoLink{
             width: 100%;
             padding: 20px;
@@ -76,6 +89,18 @@ main{
                     font-size: .8em;
                     padding-left: 5px;
                 }
+                .anchors{
+                    display: flex;
+                    width: 60%;
+                    color: var(--white_text);
+                    text-decoration: none;
+                    font-family: "Montserrat";
+                    height: 50px;
+                    justify-content: flex-start;
+                    column-gap: 10px;
+                    align-items: center;
+                    text-align: center;
+                }
 
     /* Section with main content */
 
@@ -84,7 +109,7 @@ main{
         max-width: 100%;
         height: 100%;
         min-height: 100vh;
-        background: var(--red_background);
+        background: var(--body_background);
         padding-left: 350px;
         display: flex;
         position: relative;
@@ -168,6 +193,7 @@ main{
         position: relative;
         column-gap: 40px;
         width: 100%;
+        min-width: 100%;
         min-height: 100vh;
         height: 100%;
         margin: 0;
@@ -287,6 +313,9 @@ main{
                     width: 20px;
                     height: 25px;
                 }
+
+
+
 /* Related search from API */
 #relatedSearches{
     display: flex;
@@ -538,7 +567,7 @@ main{
 
 /* Join Us info table */
 
-#joinUsSection, #BooksSection{
+#joinUsSection, #BooksSection, #contactUsSection{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -548,7 +577,9 @@ main{
     width: 60%;
     max-width: 550px;
 }
-    #joinUsSection h4{
+    #joinUsSection h4,
+    #BooksSection h4,
+    #contactUsSection h4{
         font-family: "Roboto";
         font-size: 1.4em;
         color: var(--black_text);
@@ -586,11 +617,12 @@ main{
         }
 
         /* Books Section */
-    #BooksSection{
+    #BooksSection,
+    #contactUsSection{
         max-width: 1100px;
         width: 80%;
     }
-    .removable{
+    .removable, .removableContact{
         cursor: pointer;
         color: var(--orange_background);
         font-weight: 900;
@@ -645,10 +677,39 @@ main{
                 width: 80%;
             }
 
+            /* contactUsSection  */
 
-
+#contactUsSection{
+    margin-bottom: 100px;
+}
 @media screen and (max-width: 700px){
     #mainContentForAdmin{
         padding-left: 10px !important;
+    }
+    #closeNavigation {
+        display: flex;
+    }
+    table{
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    td, th{
+        font-size: .8em;
+        max-width: 40px !important;
+        overflow: hidden;
+        width: auto;
+    }
+    #bookFormSection,
+    #aboutStoreSection,
+    #joinUsSection,
+    #BooksSection,
+    #contactUsSection{
+        width: 96%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #adminMainPanelElements{
+        width: 100% !important;
+        padding: 10px;
     }
 }

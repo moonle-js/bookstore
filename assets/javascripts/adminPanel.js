@@ -379,16 +379,49 @@ newTypeInfoButton.addEventListener('click', async function(e){
     }
 })
 
+
 // take book types from firebase
 
 function typeFromFirebase(){
     onValue(ref(dataBase, 'bookTypes/'), data => {
         document.querySelector('#bookTypeInput').innerHTML = ""
         for(let keys in data.val()){
-            console.log(data.val()[keys])
             document.querySelector('#bookTypeInput').innerHTML += `
                 <option>${data.val()[keys]}</option>
             `
+        }
+    })   
+}
+
+
+
+// take contact us information  from firebase
+
+function contactUsFromFirebase(){
+    onValue(ref(dataBase, 'contactUs/'), data => {
+        var peremennaya = 1;
+        document.querySelector('#contactUsTableBody').innerHTML = ""
+        for(let keys in data.val()){
+            document.querySelector('#contactUsTableBody').innerHTML += `
+                <tr>
+                    <td>${peremennaya}</td>
+                    <td>${data.val()[keys].name}</td>
+                    <td>${data.val()[keys].email}</td>
+                    <td>${data.val()[keys].address}</td>
+                    <td>${data.val()[keys].phone}</td>
+                    <td>${data.val()[keys].note}</td>
+                    <td class="removableContact" id="${data.val()[keys].name}">Remove</td>
+                </tr>
+            `
+
+            document.querySelectorAll('.removableContact').forEach(function(item){
+                item.addEventListener('click', function(){
+                    console.log(item.id)
+                    remove(ref(dataBase, `contactUs/${item.id}`))
+                })
+            })
+
+            peremennaya++;
         }
     })   
 }
@@ -397,4 +430,14 @@ window.onload = function(){
     getJoinedUsers()
     getBookInformation()
     typeFromFirebase()
+    contactUsFromFirebase()
 }
+
+
+
+// close navigation when phone tab
+
+document.querySelector('#closeNavigation').addEventListener('click', function(){
+    console.log('aha')
+    document.querySelector('#navigationSide').style.transform = "translateX(-380px)"
+})
