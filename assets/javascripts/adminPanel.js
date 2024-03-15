@@ -1,6 +1,6 @@
 // Importing database and functions from firebase and module js file
 import dataBase from "./database.mjs";
-import {set, get, ref} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
+import {set, get, ref, onValue, remove} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
 var refDB = ref(dataBase);
 
 // detecting if user exists
@@ -236,6 +236,7 @@ function searchBooks(element) {
 }
 
 
+
 // Adding about us to firebase
 
 var sendAboutForm = document.querySelector('#sendAboutForm')
@@ -257,20 +258,143 @@ sendAboutForm.addEventListener('click', function(e){
 })
 
 
-document.addEventListener('contextmenu', (e) => e.preventDefault());
+// document.addEventListener('contextmenu', (e) => e.preventDefault());
 
-function ctrlShiftKey(e, keyCode) {
-  return e.ctrlKey && e.shiftKey && e.keyCode === keyCode.charCodeAt(0);
+// function ctrlShiftKey(e, keyCode) {
+//   return e.ctrlKey && e.shiftKey && e.keyCode === keyCode.charCodeAt(0);
+// }
+
+// document.onkeydown = (e) => {
+//   // Disable F12, Ctrl + Shift + I, Ctrl + Shift + J, Ctrl + U
+//   if (
+//     event.keyCode === 123 ||
+//     ctrlShiftKey(e, 'I') ||
+//     ctrlShiftKey(e, 'J') ||
+//     ctrlShiftKey(e, 'C') ||
+//     (e.ctrlKey && e.keyCode === 'U'.charCodeAt(0))
+//   )
+//     return false;
+// };
+
+
+
+
+
+// Join us Table
+
+function getJoinedUsers(){
+    onValue(ref(dataBase, 'users/joinedUsers'),async result => {
+        if(result.exists()){
+            var peremennaya = 1;
+            document.querySelector("#joinUsTableBody").innerHTML = ""
+
+            for(let keys in result.val()){
+                
+                await get(ref(dataBase, `users/joinedUsers/${keys}`)).then(data => {
+                    document.querySelector("#joinUsTableBody").innerHTML += `
+                        <tr>
+                            <td>${peremennaya}</td>
+                            <td>${data.val().name}</td>
+                            <td>${data.val().mailbox}</td>
+                        </tr>
+                        `
+                })
+
+                peremennaya++;
+            }
+
+        }
+    })
 }
 
-document.onkeydown = (e) => {
-  // Disable F12, Ctrl + Shift + I, Ctrl + Shift + J, Ctrl + U
-  if (
-    event.keyCode === 123 ||
-    ctrlShiftKey(e, 'I') ||
-    ctrlShiftKey(e, 'J') ||
-    ctrlShiftKey(e, 'C') ||
-    (e.ctrlKey && e.keyCode === 'U'.charCodeAt(0))
-  )
-    return false;
-};
+
+
+
+// Books Section
+
+function getBookInformation(){
+    onValue(ref(dataBase, 'books/'),async result => {
+        if(result.exists()){
+            var peremennaya = 1;
+            document.querySelector("#BooksTableBody").innerHTML = ""
+
+            for(let keys in result.val()){
+                
+                await get(ref(dataBase, `books/${keys}`)).then(data => {
+                    document.querySelector("#BooksTableBody").innerHTML += `
+                        <tr>
+                            <td>${peremennaya}</td>
+                            <td>${data.val().title}</td>
+                            <td>${data.val().description}</td>
+                            <td>${data.val().category}</td>
+                            <td>${data.val().author}</td>
+                            <td class="removable" id="${data.val().title}">Remove</td>
+                        </tr>
+                        `
+
+                    document.querySelectorAll('.removable').forEach(function(item){
+                        item.addEventListener('click', function(){
+                            remove(ref(dataBase, `books/${item.id}`))
+                        })
+                    })
+                })
+
+                peremennaya++;
+            }
+
+        }
+    })
+}
+
+
+// Adding new book type
+var addingTypeForm = document.querySelector('#typeAddingInfo');
+var newTypeInfoButton = document.querySelector('#newTypeInfoButton')
+
+document.querySelector('#typeAddingBlock span').addEventListener('click', function(){
+    if(addingTypeForm.style.display == "flex"){
+        addingTypeForm.style.display = "none"
+    }else{
+        addingTypeForm.style.display = "flex"
+    }
+})
+
+
+var clicksToWindowCount = 1;
+window.addEventListener('click', function(e){
+    if(e.target != addingTypeForm && clicksToWindowCount > 1){
+        addingTypeForm.style.display = "none"
+        clicksToWindowCount = 0
+    }
+    clicksToWindowCount++;
+})
+
+newTypeInfoButton.addEventListener('click', async function(e){
+    e.preventDefault();
+    if(document.querySelector('#newTypeInfo').value.trim()){
+        await set(ref(dataBase, `bookTypes/${document.querySelector('#newTypeInfo').value.trim()}`), `${document.querySelector('#newTypeInfo').value.trim()}`)
+        addingTypeForm.style.display = "none"
+    }else{
+        alert('please fill the prompt')
+    }
+})
+
+// take book types from firebase
+
+function typeFromFirebase(){
+    onValue(ref(dataBase, 'bookTypes/'), data => {
+        document.querySelector('#bookTypeInput').innerHTML = ""
+        for(let keys in data.val()){
+            console.log(data.val()[keys])
+            document.querySelector('#bookTypeInput').innerHTML += `
+                <option>${data.val()[keys]}</option>
+            `
+        }
+    })   
+}
+
+window.onload = function(){
+    getJoinedUsers()
+    getBookInformation()
+    typeFromFirebase()
+}

@@ -1,3 +1,6 @@
+import {set, get, ref, onValue} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
+import dataBase from "./database.mjs";
+
 // Google Books API
 const valueFromAPI = document.querySelector('#valueFromAPI')
 const valueFromAPIButton = document.querySelector('#valueFromAPIButton')
@@ -66,3 +69,33 @@ function searchBooks(element) {
             console.log("Error fetching data:", error);
         });
 }
+
+
+
+
+// adding book info to firebase
+async function addBookToFireBase(bookName, author, imageURL, descriptionOf, releaseDate, typeOfBook){
+
+    if(bookName, author, imageURL, descriptionOf, releaseDate){
+        console.log('getdi')
+
+            await set(ref(dataBase, `books/${bookName}/title`), `${bookName}`);
+            await set(ref(dataBase, `books/${bookName}/author`), `${author}`);
+            await set(ref(dataBase, `books/${bookName}/description`), `${descriptionOf}`);
+            await set(ref(dataBase, `books/${bookName}/dateRelease`), `${releaseDate}`);
+            await set(ref(dataBase, `books/${bookName}/imageURL`), `${imageURL}`);
+        }else{
+            alert('please full prompts')
+        }
+}
+document.querySelector('#addBookButton').addEventListener('click', function(e){
+
+    e.preventDefault();
+    addBookToFireBase(
+        bookNameInput.value.trim(),
+        authorNameInput.value.trim(),
+        bookImageUrlInput.value.trim(),
+        bookDescription.value.trim(),
+        bookReleaseDate.value.trim(),
+    )
+})

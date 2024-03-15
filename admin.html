@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="./assets/css/admin.css">
     <!-- Script for admin panel -->
     <script src="./assets/javascripts/adminPanel.js" type="module" defer></script>
+    <script src="./assets/javascripts/secondAdmin.js" defer type="module"></script>
 
     <title>Bookstore Admin</title>
 
@@ -120,7 +121,7 @@
                             Book form
                         </label>
 
-                        <form class="bookFormCard">
+                        <div class="bookFormCard">
                             <div>
                                 <label for="bookNameInput">
                                     Book Name
@@ -165,18 +166,36 @@
                                 <input type="checkbox" id="newOrNot">
                             </div>
 
-                            <div>
+                            <div id="typeadding">
+                                <!-- Adding new type of -->
+                                <div id="typeAddingBlock">
+                                    <span>
+                                        +
+                                    </span>
+                                    <form id="typeAddingInfo">
+                                        <input id="newTypeInfo" type="text" placeholder="Add new type">
+                                        <button id="newTypeInfoButton">
+                                            add
+                                        </button>
+                                    </form>
+                                </div>
+                                <!-- Adding new type of -->
+
+
                                 <label for="bookTypeInput">
                                     Book Type
                                 </label>
+                                
                                 <select type="text" id="bookTypeInput" placeholder="Add Type of book">
                                 </select>
+
+
                             </div>
 
                             <button id="addBookButton">
                                 Add
                             </button>
-                        </form>
+                        </div>
                     </div>
                     <!-- Setting Books Initials -->
 
@@ -216,6 +235,64 @@
                     </div>
 
                     <!-- About store SEction -->
+
+
+
+                    <!-- Join Us Info Section -->
+                    
+                    <div id="joinUsSection">
+                        <h4>
+                            Join Us
+                        </h4>
+
+                        <table id="joinUsMainTable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Full Name</th>
+                                    <th>Mail Address</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="joinUsTableBody">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Join Us Info Section -->
+
+
+                    <!-- Books section -->
+
+                    <div id="BooksSection">
+                        <h4>
+                            Books
+                        </h4>
+
+                        <table id="BooksMainTable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th>Author</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="BooksTableBody">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                    <!-- Books section -->
+
+
                 </div>
             </div>
         </section>
