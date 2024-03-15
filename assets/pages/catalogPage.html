@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="../css/headerFooter.css">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-/>
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
 
+
+    <link rel="stylesheet" href="../css/join_us.css">
 <link rel="stylesheet" href="../css/reset.css">
 
 <link rel="stylesheet" href="../css/catalogPage.css">
@@ -20,10 +24,86 @@
 <body>
 
  <!---HEADER-->
+<!-- Creating header -->
+<header class="header">
+  <nav>
+      <ul>
+          <!-- First li with logo and text -->
+          <li id="first">
+              <a href="">
+                  <img src="../images/adminPanel/searchIcon.png" alt="logo" title="Bookstore">
+                  <div class="header_logo_text">
+                      <p class="header_logo_text_first">
+                          library
+                      </p>
+                      <p class="header_logo_text_second">
+                          book store
+                      </p>
+                  </div>
+              </a>
+          </li>
+          <!-- First li with logo and text -->
+          
+          <!-- List with links 
+          It should be in center so i made  its with 50% and it putted automatically-->
+          <li class="second_list" id="links">
+              <ul>
+                  <li>
+                      <a href="#">Home</a>
+                  </li>
+                  
+                  <li>
+                      <a href="./pages/catalog.html">Catalog</a>
+                  </li>
+                  
+                  <li>
+                      <a href="#">About Store</a>
+                  </li>
+                  
+                  <li>
+                      <a href="#">Contact Us</a>
+                  </li>
+                  
+                  <li>
+                      <a href="#">Search</a>
+                  </li>
+              </ul>
+              <img id="image_nav" src="" alt="">
+          </li>
+          <!-- List with links -->
+
+          <!-- List with logo and join -->
+          <li>
+              <img id="join_us" src="" alt="join" title="join">
+              <p id="join_us_p">
+                  Join us
+              </p>
+              <div id="hamburger" class="hamburger">
+                  <span class="span_ham"></span>
+                  <span class="span_ham"></span>
+                  <span class="span_ham"></span>
+              </div>
+          </li>
+          <!-- End of list with logo -->
+      </ul>
+  </nav>
+</header>
+<!-- Header is done -->
 
  <!--Join Us modal-->
  
-
+<!-- Join_us section will be absolute for cover all page -->
+<section id="join_us_panel" class="join_us">
+  <form>
+      <p class="join_text">
+          Join Us
+      </p>
+      <input type="text" name="fullName" id="fullname" placeholder="Full name">
+      <input type="email" name="email" id="email" placeholder="Email">
+      <button id="join_button" type="submit">Join</button>
+  </form>
+</section>
+<!-- End of join us -->
 
     <!-- Slider main container -->
 <div class="swiper">
@@ -50,9 +130,123 @@
 
  <!---FOOTER-->
 
+ <footer>
+  <nav>
+      <ul>
+          <li id="firstt">
+              <a href="">
+                  <img src="" alt="logo" title="Bookstore">
+                  <div class="header_logo_text">
+                      <p class="header_logo_text_first">
+                          library
+                      </p>
+                      <p class="header_logo_text_second">
+                          book store
+                      </p>
+                  </div>
+              </a>
+          </li>
+
+          <li>
+              <span class="list_first_description">
+                  Popular
+              </span>
+              <span>Programming</span>
+              <span>Books for children</span>
+              <span>Pschology</span>
+              <span>Business</span>
+          </li>
+
+          <li>
+              <span class="list_first_description">
+                  Cash
+              </span>
+              <span>Delivery</span>
+              <span>Payment</span>
+              <span>About the store</span>
+          </li>
+
+          <li>
+              <span class="list_first_description">
+                  Help
+              </span>
+              <span>Contacts</span>
+              <span>Purchase returns</span>
+              <span>Buyer help</span>
+          </li>
+      </ul>
+  </nav>
+
+  <small>
+      All rights reserved © 2003-2021 LIBRARY TERMS OF USE | Privacy Policy
+  </small>
+
+
+  <div class="absolute">
+      <div class="absolute_up">
+          <a href="">
+              <img src="" alt="">
+              <div class="absolute_logo_text">
+                  <p class="absolute_logo_text_first">
+                      library
+                  </p>
+                  <p class="absolute_logo_text_second">
+                      book store
+                  </p>
+              </div>
+          </a>
+      </div>
+
+      <div class="absolute_middle">
+          <div class="nav">
+              <ul>
+                  <li>
+                      <a href="">
+                          Home
+                      </a>
+                  </li>
+
+                  <li>
+                      <a href="">
+                          Catalog
+                      </a>
+                  </li>
+
+                  <li>
+                      <a href="">
+                          About
+                      </a>
+                  </li>
+
+                  <li>
+                      <a href="">
+                          Contact us
+                      </a>
+                  </li>
+
+                  <li>
+                      <a href="">
+                          Search
+                      </a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+
+      <div class="absolute_low">
+          <p>
+              Library Bookstore EACamp © 2003-2021
+          </p>
+      </div>
+  </div>
+</footer>
+
+
 
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="../javascripts/catalogPage.js"></script> 
+  <script src="../javascripts/hamburger.js"></script>
+  <script src="../javascripts/join_us.js"></script>
 </body>
 </html>
