@@ -359,10 +359,10 @@ document.querySelector('#typeAddingBlock span').addEventListener('click', functi
     }
 })
 
-
+// Click other side for close the form
 var clicksToWindowCount = 1;
 window.addEventListener('click', function(e){
-    if(e.target != addingTypeForm && clicksToWindowCount > 1){
+    if(e.target != addingTypeForm && e.target != addingTypeForm.querySelector('#newTypeInfo') && clicksToWindowCount > 1){
         addingTypeForm.style.display = "none"
         clicksToWindowCount = 0
     }
