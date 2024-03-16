@@ -20,8 +20,6 @@ modalBackdrop.addEventListener("click", function () {
 
 // Initialize Firebase
 
-initializeApp(firebaseConfig);
-const dataBase = getDatabase();
 
 //write form on dataBase
 function writePushJoinData(collection, data) {

@@ -9,21 +9,30 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
 let swiperWrapper = document.querySelector("#all_swiper_books");
-onValue(ref(dataBase, "/books"), (response) => {
+onValue(ref(dataBase, "books/"), (response) => {
   const result = response.val();
   swiperWrapper.innerHTML = "";
 
-  for (const book in result) {
-    swiperWrapper.innerHTML += `
-        <div class="swiper-slide">
-       <div class="catalog_swiper_card">
-       <span>New</span>
-       <img class="swiper_img" src="${result[book].imageURL}" alt="">
-       <h3 class="swiper_book">${result[book].title}</h3>
-       <button class="swiper_btn">Read More</button>
-       </div>
-     </div> `;
+
+  for (let book in result) {
+    if(result[book].new == 'true'){
+    console.log('salam')
+
+      swiperWrapper.innerHTML += `
+      <div class="swiper-slide">
+     <div class="catalog_swiper_card">
+     <span>New</span>
+     <img class="swiper_img" src="${result[book].imageURL}" alt="">
+     <h3 class="swiper_book">${result[book].title}</h3>
+     <button class="swiper_btn">Read More</button>
+     </div>
+   </div> `;
+    }else{
+      console.log('alinmadi')
+    }
+    
   }
+  swiper()
 });
 
 function swiper() {
@@ -64,5 +73,3 @@ function swiper() {
     },
   });
 }
-
-setTimeout(swiper, 4000);
