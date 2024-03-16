@@ -291,3 +291,27 @@ document.querySelector('#hamburger').addEventListener('click', function(){
 document.querySelector('#closeNavigation').addEventListener('click', function(){
     document.querySelector('#navigationSide').style.transform = "translateX(-380px)"
 })
+
+//sending information about store to firebase
+
+document.querySelector('#sendAboutForm').addEventListener('click', function(e){
+    e.preventDefault();
+    const titleAboutStore = document.querySelector('#titleAboutStore')
+    const aboutImageURL = document.querySelector('#aboutImageURL')
+    const aboutDescription = document.querySelector('#aboutDescription')
+
+    if(titleAboutStore.value.trim() &&
+        aboutDescription.value.trim()){
+            set(ref(dataBase, 'aboutUs/description'),`${aboutDescription.value}`)
+            if(aboutImageURL.value.trim()){
+                set(ref(dataBase, 'aboutUs/imageURL'),`${aboutImageURL.value.trim()}`)
+            }
+            set(ref(dataBase, 'aboutUs/title'),`${titleAboutStore.value}`)
+
+            titleAboutStore.value = ""
+            aboutImageURL.value = ""
+            aboutDescription.value = ""
+        }else{
+            alert('please fill prompts')
+        }
+})
