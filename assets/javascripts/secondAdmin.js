@@ -1,5 +1,7 @@
-import {set, get, ref, onValue} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
+// Importing database and functions from firebase and module js file
 import dataBase from "./database.mjs";
+import {set, get, ref, onValue, remove} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
+var refDB = ref(dataBase);
 
 // Google Books API
 const valueFromAPI = document.querySelector('#valueFromAPI')
@@ -51,14 +53,17 @@ function searchBooks(element) {
                                 console.log(data)
                                 //setting data to propmts
                                 bookNameInput.value = `${data.volumeInfo.title}`
-                                authorNameInput.value = `${data.volumeInfo.authors}`
+                                authorNameInput.value = `${data.volumeInfo.authors[0]}`
+                                bookImageUrlInput.value = `${data.volumeInfo.imageLinks.medium}`
+                                bookDescription.value = `${data.volumeInfo.description}`
+                                bookReleaseDate.value = `${data.volumeInfo.publishedDate}`
 
 
 
                                 document.querySelector('#relatedSearches').style.display = "none"
                                 document.querySelector('#relatedSearches').innerHTML = ""
                                 document.querySelector('#relatedSearches').value = ""
-                                valueFromAPI.value = ""
+                                valueFromAPI.value = " "
                                 
                             })
                     })
@@ -76,14 +81,33 @@ function searchBooks(element) {
 // adding book info to firebase
 async function addBookToFireBase(bookName, author, imageURL, descriptionOf, releaseDate, typeOfBook){
 
-    if(bookName, author, imageURL, descriptionOf, releaseDate){
+    if(bookName.value.trim() &&
+        author.value.trim() &&
+        imageURL.value.trim() && 
+        descriptionOf.value.trim() && 
+        releaseDate.value.trim() &&
+        typeOfBook.value){
         console.log('getdi')
 
-            await set(ref(dataBase, `books/${bookName}/title`), `${bookName}`);
-            await set(ref(dataBase, `books/${bookName}/author`), `${author}`);
-            await set(ref(dataBase, `books/${bookName}/description`), `${descriptionOf}`);
-            await set(ref(dataBase, `books/${bookName}/dateRelease`), `${releaseDate}`);
-            await set(ref(dataBase, `books/${bookName}/imageURL`), `${imageURL}`);
+            await set(ref(dataBase, `books/${bookName.value.trim()}/title`), `${bookName.value}`);
+            await set(ref(dataBase, `books/${bookName.value.trim()}/author`), `${author.value}`);
+            await set(ref(dataBase, `books/${bookName.value.trim()}/description`), `${descriptionOf.value}`);
+            await set(ref(dataBase, `books/${bookName.value.trim()}/dateRelease`), `${releaseDate.value}`);
+            await set(ref(dataBase, `books/${bookName.value.trim()}/imageURL`), `${imageURL.value}`);
+            await set(ref(dataBase, `books/${bookName.value.trim()}/isShown`), `false`);
+            await set(ref(dataBase, `books/${bookName.value.trim()}/category`), `${typeOfBook.value}`);
+
+            if(document.querySelector('#newOrNot').checked){
+                await set(ref(dataBase, `books/${bookName.value.trim()}/new`), `true`);
+            }else{
+                await set(ref(dataBase, `books/${bookName.value.trim()}/new`), `false`);
+            }
+                
+            bookNameInput.value = ""
+            authorNameInput.value = ""
+            bookImageUrlInput.value = ""
+            bookDescription.value = ""
+            bookReleaseDate.value = ""
         }else{
             alert('please full prompts')
         }
@@ -92,10 +116,178 @@ document.querySelector('#addBookButton').addEventListener('click', function(e){
 
     e.preventDefault();
     addBookToFireBase(
-        bookNameInput.value.trim(),
-        authorNameInput.value.trim(),
-        bookImageUrlInput.value.trim(),
-        bookDescription.value.trim(),
-        bookReleaseDate.value.trim(),
+        bookNameInput,
+        authorNameInput,
+        bookImageUrlInput,
+        bookDescription,
+        bookReleaseDate,
+        bookTypeInput
     )
+})
+
+
+
+
+// Join us Table
+
+function getJoinedUsers(){
+    onValue(ref(dataBase, 'users/joinedUsers'),async result => {
+        if(result.exists()){
+            var peremennaya = 1;
+            document.querySelector("#joinUsTableBody").innerHTML = ""
+
+            for(let keys in result.val()){
+                
+                await get(ref(dataBase, `users/joinedUsers/${keys}`)).then(data => {
+                    document.querySelector("#joinUsTableBody").innerHTML += `
+                        <tr>
+                            <td>${peremennaya}</td>
+                            <td>${data.val().name}</td>
+                            <td>${data.val().mailbox}</td>
+                        </tr>
+                        `
+                })
+
+                peremennaya++;
+            }
+
+        }
+    })
+}
+
+
+
+
+// Books Section
+
+function getBookInformation(){
+    onValue(ref(dataBase, 'books/'),async result => {
+        if(result.exists()){
+            var peremennaya = 1;
+            document.querySelector("#BooksTableBody").innerHTML = ""
+
+            for(let keys in result.val()){
+                
+                await get(ref(dataBase, `books/${keys}`)).then(data => {
+                    document.querySelector("#BooksTableBody").innerHTML += `
+                        <tr>
+                            <td>${peremennaya}</td>
+                            <td class="titleAndImage">${data.val().title}</td>
+                            <td><img src="${data.val().imageURL}" style="width: 30px; height:30px"></td>
+                            <td >${data.val().description}</td>
+                            <td>${data.val().category}</td>
+                            <td>${data.val().author}</td>
+                            <td class="removable" id="${data.val().title}"><img src="./assets/images/adminPanel/trash.svg"></td>
+                        </tr>
+                        `
+
+                    document.querySelectorAll('.removable').forEach(function(item){
+                        item.addEventListener('click', function(){
+                            remove(ref(dataBase, `books/${item.id}`))
+                        })
+                    })
+                })
+
+                peremennaya++;
+            }
+
+        }
+    })
+}
+
+
+// Adding new book type
+var addingTypeForm = document.querySelector('#typeAddingInfo');
+var newTypeInfoButton = document.querySelector('#newTypeInfoButton')
+
+document.querySelector('#typeAddingBlock span').addEventListener('click', function(){
+    if(addingTypeForm.style.display == "flex"){
+        addingTypeForm.style.display = "none"
+    }else{
+        addingTypeForm.style.display = "flex"
+    }
+})
+
+// Click other side for close the form
+var clicksToWindowCount = 1;
+window.addEventListener('click', function(e){
+    if(e.target != addingTypeForm && e.target != addingTypeForm.querySelector('#newTypeInfo') && clicksToWindowCount > 1){
+        addingTypeForm.style.display = "none"
+        clicksToWindowCount = 0
+    }
+    clicksToWindowCount++;
+})
+
+newTypeInfoButton.addEventListener('click', async function(e){
+    e.preventDefault();
+    if(document.querySelector('#newTypeInfo').value.trim()){
+        await set(ref(dataBase, `bookTypes/${document.querySelector('#newTypeInfo').value.trim()}`), `${document.querySelector('#newTypeInfo').value.trim()}`)
+        addingTypeForm.style.display = "none"
+    }else{
+        alert('please fill the prompt')
+    }
+})
+
+
+// take book types from firebase
+
+function typeFromFirebase(){
+    onValue(ref(dataBase, 'bookTypes/'), data => {
+        document.querySelector('#bookTypeInput').innerHTML = ""
+        for(let keys in data.val()){
+            document.querySelector('#bookTypeInput').innerHTML += `
+                <option>${data.val()[keys]}</option>
+            `
+        }
+    })   
+}
+
+
+
+// take contact us information  from firebase
+
+function contactUsFromFirebase(){
+    onValue(ref(dataBase, 'contactUs/'), data => {
+        var peremennaya = 1;
+        document.querySelector('#contactUsTableBody').innerHTML = ""
+        for(let keys in data.val()){
+            document.querySelector('#contactUsTableBody').innerHTML += `
+                <tr>
+                    <td>${peremennaya}</td>
+                    <td>${data.val()[keys].name}</td>
+                    <td>${data.val()[keys].email}</td>
+                    <td>${data.val()[keys].address}</td>
+                    <td>${data.val()[keys].phone}</td>
+                    <td>${data.val()[keys].note}</td>
+                    <td class="removableContact" id="${data.val()[keys].name}"><img src="./assets/images/adminPanel/trash.svg"></td>
+                </tr>
+            `
+
+            document.querySelectorAll('.removableContact').forEach(function(item){
+                item.addEventListener('click', function(){
+                    console.log(item.id)
+                    remove(ref(dataBase, `contactUs/${item.id}`))
+                })
+            })
+
+            peremennaya++;
+        }
+    })   
+}
+
+    getJoinedUsers()
+    getBookInformation()
+    typeFromFirebase()
+    contactUsFromFirebase()
+
+
+
+document.querySelector('#hamburger').addEventListener('click', function(){
+    document.querySelector('#navigationSide').style.transform = "translateX(0px)"
+})
+
+// close navigation when phone tab
+
+document.querySelector('#closeNavigation').addEventListener('click', function(){
+    document.querySelector('#navigationSide').style.transform = "translateX(-380px)"
 })
