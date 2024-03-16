@@ -10,42 +10,44 @@ import {
 
 document.querySelector('#searchBookButton').addEventListener('click', function(e){
     e.preventDefault();
-    var book = '';
-    get(ref(dataBase, 'isShownBook')).then(data => {
-        if(data.exists()){
-            book = data.val().name
-        }
-    })
+    var searchBook = document.querySelector('#searchBook');
+    if(searchBook.value.trim()){
+        var array = searchBook.value.split(' ');
 
-    get(ref(dataBase, 'books/')).then( response => {
-        if(response.exists()){
-            for(let keys in response.val()){
-                if(response.val()[keys].isShown == "true" && response.val()[keys].title == book ){
-                    document.querySelector('.rightSide').innerHTML = `
-                    <div id="bookImageDetails">
-                        <img src="${response.val()[keys].imageURL}" alt="">
-                    </div>
-
-                    <div id="addedInfo">
-                        <p>${response.val()[keys].title}</p>
-
-                        <h5 id="titleDetails">
-                            ${response.val()[keys].title}
-                        </h5>
-
-                        <p id="authorDetails">
-                            ${response.val()[keys].author}
-                        </p>
-
-                        <p id="descriptionDetails">
-                            ${response.val()[keys].description}
-                        </p>
-                    </div>
-                        
-                    `
-                    response.val()[keys].isShown = "false"
+        get(ref(dataBase, 'books')).then(response => {
+            if(response.exists()){
+                for(let keys in response.val()){
+                    if(response.val()[keys].title.toLowerCase().includes(`${searchBook.value.trim()}`)){
+                        document.querySelector('.rightSide').innerHTML = `
+                        <div id="bookImageDetails">
+                            <img src="${response.val()[keys].imageURL}" alt="">
+                        </div>
+    
+                        <div id="addedInfo">
+    
+                            <h5 id="titleDetails">
+                                ${response.val()[keys].title}
+                            </h5>
+    
+                            <p id="authorDetails">
+                                ${response.val()[keys].author}
+                            </p>
+    
+                            <p id="descriptionDetails">
+                                ${response.val()[keys].description}
+                            </p>
+                        </div>
+                            
+                        `
+                    }else{
+                        document.querySelector('.rightSide').innerHTML = `
+                            <div id="addedInfo">
+                                <p id="titleDetails">Book is not found</p>
+                            </div>
+                        `
+                    }
                 }
             }
-        }
-    })
+        })
+    }
 })
