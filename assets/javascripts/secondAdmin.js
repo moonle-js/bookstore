@@ -52,18 +52,24 @@ function searchBooks(element) {
                             .then(data => {
                                 console.log(data)
                                 //setting data to propmts
-                                bookNameInput.value = `${data.volumeInfo.title}`
-                                authorNameInput.value = `${data.volumeInfo.authors[0]}`
-                                bookImageUrlInput.value = `${data.volumeInfo.imageLinks.medium}`
-                                bookDescription.value = `${data.volumeInfo.description}`
-                                bookReleaseDate.value = `${data.volumeInfo.publishedDate}`
+                                try{
+                                    bookNameInput.value = `${data.volumeInfo.title}`
+                                    authorNameInput.value = `${data.volumeInfo.authors[0]}`
+                                    if(data.volumeInfo.imageLinks.medium){
+                                        bookImageUrlInput.value = `${data.volumeInfo.imageLinks.medium}`
+                                    }
+                                    bookDescription.value = `${data.volumeInfo.description}`
+                                    bookReleaseDate.value = `${data.volumeInfo.publishedDate}`
 
 
 
-                                document.querySelector('#relatedSearches').style.display = "none"
-                                document.querySelector('#relatedSearches').innerHTML = ""
-                                document.querySelector('#relatedSearches').value = ""
-                                valueFromAPI.value = " "
+                                    document.querySelector('#relatedSearches').style.display = "none"
+                                    document.querySelector('#relatedSearches').innerHTML = ""
+                                    document.querySelector('#relatedSearches').value = ""
+                                    valueFromAPI.value = ""
+                                }catch(error){
+                                    document.querySelector('#relatedSearches').innerHTML = "Some error occured with book please add manually"
+                                }
                                 
                             })
                     })
@@ -88,19 +94,22 @@ async function addBookToFireBase(bookName, author, imageURL, descriptionOf, rele
         releaseDate.value.trim() &&
         typeOfBook.value){
         console.log('getdi')
+            try{
+                await set(ref(dataBase, `books/${bookName.value.trim()}/imageURL`), `${imageURL.value}`);
+                await set(ref(dataBase, `books/${bookName.value.trim()}/title`), `${bookName.value}`);
+                await set(ref(dataBase, `books/${bookName.value.trim()}/author`), `${author.value}`);
+                await set(ref(dataBase, `books/${bookName.value.trim()}/description`), `${descriptionOf.value}`);
+                await set(ref(dataBase, `books/${bookName.value.trim()}/dateRelease`), `${releaseDate.value}`);
+                await set(ref(dataBase, `books/${bookName.value.trim()}/isShown`), `false`);
+                await set(ref(dataBase, `books/${bookName.value.trim()}/category`), `${typeOfBook.value}`);
 
-            await set(ref(dataBase, `books/${bookName.value.trim()}/title`), `${bookName.value}`);
-            await set(ref(dataBase, `books/${bookName.value.trim()}/author`), `${author.value}`);
-            await set(ref(dataBase, `books/${bookName.value.trim()}/description`), `${descriptionOf.value}`);
-            await set(ref(dataBase, `books/${bookName.value.trim()}/dateRelease`), `${releaseDate.value}`);
-            await set(ref(dataBase, `books/${bookName.value.trim()}/imageURL`), `${imageURL.value}`);
-            await set(ref(dataBase, `books/${bookName.value.trim()}/isShown`), `false`);
-            await set(ref(dataBase, `books/${bookName.value.trim()}/category`), `${typeOfBook.value}`);
-
-            if(document.querySelector('#newOrNot').checked){
-                await set(ref(dataBase, `books/${bookName.value.trim()}/new`), `true`);
-            }else{
-                await set(ref(dataBase, `books/${bookName.value.trim()}/new`), `false`);
+                if(document.querySelector('#newOrNot').checked){
+                    await set(ref(dataBase, `books/${bookName.value.trim()}/new`), `true`);
+                }else{
+                    await set(ref(dataBase, `books/${bookName.value.trim()}/new`), `false`);
+                }
+            }catch(error){
+                console.log(error)
             }
                 
             bookNameInput.value = ""
@@ -161,38 +170,42 @@ function getJoinedUsers(){
 // Books Section
 
 function getBookInformation(){
-    onValue(ref(dataBase, 'books/'),async result => {
-        if(result.exists()){
-            var peremennaya = 1;
-            document.querySelector("#BooksTableBody").innerHTML = ""
-
-            for(let keys in result.val()){
-                
-                await get(ref(dataBase, `books/${keys}`)).then(data => {
-                    document.querySelector("#BooksTableBody").innerHTML += `
-                        <tr>
-                            <td>${peremennaya}</td>
-                            <td class="titleAndImage">${data.val().title}</td>
-                            <td><img src="${data.val().imageURL}" style="width: 30px; height:30px"></td>
-                            <td >${data.val().description}</td>
-                            <td>${data.val().category}</td>
-                            <td>${data.val().author}</td>
-                            <td class="removable" id="${data.val().title}"><img src="./assets/images/adminPanel/trash.svg"></td>
-                        </tr>
-                        `
-
-                    document.querySelectorAll('.removable').forEach(function(item){
-                        item.addEventListener('click', function(){
-                            remove(ref(dataBase, `books/${item.id}`))
+    try{
+        onValue(ref(dataBase, 'books/'),async result => {
+            if(result.exists()){
+                var peremennaya = 1;
+                document.querySelector("#BooksTableBody").innerHTML = ""
+    
+                for(let keys in result.val()){
+                    
+                    await get(ref(dataBase, `books/${keys}`)).then(data => {
+                        document.querySelector("#BooksTableBody").innerHTML += `
+                            <tr>
+                                <td>${peremennaya}</td>
+                                <td class="titleAndImage">${data.val().title}</td>
+                                <td><img src="${data.val().imageURL}" style="width: 30px; height:30px"></td>
+                                <td >${data.val().description}</td>
+                                <td>${data.val().category}</td>
+                                <td>${data.val().author}</td>
+                                <td class="removable" id="${data.val().title}"><img src="./assets/images/adminPanel/trash.svg"></td>
+                            </tr>
+                            `
+    
+                        document.querySelectorAll('.removable').forEach(function(item){
+                            item.addEventListener('click', function(){
+                                remove(ref(dataBase, `books/${item.id}`))
+                            })
                         })
                     })
-                })
-
-                peremennaya++;
+    
+                    peremennaya++;
+                }
+    
             }
-
-        }
-    })
+        })
+    }catch (error){
+        console.log('some information is not found')
+    }
 }
 
 
@@ -213,6 +226,7 @@ var clicksToWindowCount = 1;
 window.addEventListener('click', function(e){
     if(e.target != addingTypeForm && e.target != addingTypeForm.querySelector('#newTypeInfo') && clicksToWindowCount > 1){
         addingTypeForm.style.display = "none"
+        document.querySelector('#relatedSearches').style.display = "none"
         clicksToWindowCount = 0
     }
     clicksToWindowCount++;
