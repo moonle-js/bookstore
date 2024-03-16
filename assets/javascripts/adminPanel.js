@@ -274,6 +274,31 @@ function detectUser(valueFromPrompt, passwordFromPrompt){
 
                     <!-- Contact us section -->
 
+                    <!-- About Us Section -->
+
+                    <div id="aboutUsFromFirebaseSection">
+                        <h4>
+                            About Us Elements
+                        </h4>
+
+                        <table id="AboutUsMainTable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Image URL</th>
+                                    <th>Image</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="aboutUsTableBody">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
                 `

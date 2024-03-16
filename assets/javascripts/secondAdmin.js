@@ -275,10 +275,36 @@ function contactUsFromFirebase(){
     })   
 }
 
+function aboutUsFromFirebase(){
+    onValue(ref(dataBase, 'aboutUs/'), data => {
+            var peremennaya = 1;
+            document.querySelector('#aboutUsTableBody').innerHTML = ""
+            document.querySelector('#aboutUsTableBody').innerHTML += `
+                <tr>
+                    <td>${peremennaya}</td>
+                    <td>${data.val().title}</td>
+                    <td>${data.val().description}</td>
+                    <td>${data.val().imageURL}</td>
+                    <td><img id="aboutUsPagePhoto" src="${data.val().imageURL}"></td>
+                    <td class="removableAbout"><img src="./assets/images/adminPanel/trash.svg"></td>
+                </tr>
+            `
+
+            document.querySelector('.removableAbout').addEventListener('click', function(){
+                console.log('silirem')
+                remove(ref(dataBase, `aboutUs/`))
+            })
+
+            peremennaya++;
+        }
+    )   
+}
+
     getJoinedUsers()
     getBookInformation()
     typeFromFirebase()
     contactUsFromFirebase()
+    aboutUsFromFirebase()
 
 
 
