@@ -1,30 +1,77 @@
-var joinUs                  =           document.querySelector('#join_us'),
-    joinUsText              =           document.querySelector("#join_us_p"),
-    joinUsPanel             =           document.querySelector('#join_us_panel'),
-    joinButton              =           document.querySelector("#join_button");
-var fullName                =           document.querySelector('#fullname'),
-    email                   =           document.querySelector('#email')
+let joinBox = document.querySelector(".join_box");
+let modalBackdrop = document.querySelector(".modal_backdrop");
+let modalBox = document.querySelector(".modal_box");
+let joinName = document.querySelector("#join_name");
+let joinEmail = document.querySelector("#join_email");
+let joinBtn = document.querySelector(".join_btn");
+
+// display js
+
+joinBox.addEventListener("click", function () {
+  modalBackdrop.style.display = "block";
+  modalBox.classList.add("show");
+});
+
+modalBackdrop.addEventListener("click", function () {
+  modalBackdrop.style.display = "none";
+  modalBox.classList.remove("show");
+});
 
 
-    
-    function showNone(){
-        email.value = "";
-        fullName.value = "";
-        joinUsPanel.style.display = "none";
+// Initialize Firebase
+
+initializeApp(firebaseConfig);
+const dataBase = getDatabase();
+
+//write form on dataBase
+function writePushJoinData(collection, data) {
+  try {
+    if (!collection) {
+      alert("Required collection");
+      return;
     }
-    function show(){
-        fullName.value = "";
-        email.value = "";
-        joinUsPanel.style.display = "flex";
-    }
+    const contactRef = ref(dataBase, collection);
+    push(contactRef, data);
+  } catch (err) {
+    console.log(err, "err");
+  }
+}
 
-    document.addEventListener('click', function(e){
-        // Documentde her hansisa bir yere basanda join us itmelidir
-        //  e.targer != joinUs 
-    })
+//submit join
 
-    joinUs.onclick = show;
-    joinUsText.onclick = show;
-    joinButton.onclick = showNone;
+joinBtn.addEventListener("click", function () {
+  let name = joinName.value;
+  let email = joinEmail.value;
 
-fullName.style.textTransform = "capitalize";
+  if (!name) {
+    joinName.classList.add("is-invalid");
+  } else {
+    joinName.classList.remove("is-invalid");
+  }
+  if (!email) {
+    joinEmail.classList.add("is-invalid");
+  } else {
+    joinEmail.classList.remove("is-invalid");
+  }
+
+  if (!name || !email) {
+    return;
+  }
+
+  let data = {
+    name,
+    email,
+  };
+
+  writePushJoinData("join", data);
+
+  setTimeout(() => {
+    modalBackdrop.style.display = "none";
+    modalBox.classList.remove("show");
+  }, 500);
+
+  joinName.value ="";
+  joinEmail.value ="";
+});
+
+console.log("join");
