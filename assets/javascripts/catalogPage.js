@@ -158,6 +158,9 @@ function convertData(d) {
   });
   return myNewData;
 }
+
+
+
 onValue(ref(dataBase, "books"), (response) => {
 
   const result = convertData(response.val());
@@ -189,7 +192,7 @@ onValue(ref(dataBase, "books"), (response) => {
   const result = convertData(response.val());
 
   let filtered_data = result.filter((item) => {
-    return item.counter =15;
+    return item.counter >= 15;
   });
 
   let datalist = filtered_data
@@ -210,3 +213,20 @@ onValue(ref(dataBase, "books"), (response) => {
   besteller_swiper.update();
 });
 
+// onValue(ref(dataBase, "books"), data => {
+//   if(data.exists()){
+//     for(let keys in data.val()){
+//       if(data.val()[keys].new == "true"){
+//         document.querySelector('#swiper').innerHTML += `
+//         <div class="swiper-slide">
+//           <div class="catalog_swiper_card">
+//           <span>New</span>
+//           <img class="swiper_img" src="${data.val()[keys].imageURL}" alt="">
+//           <h3 class="swiper_book">${data.val()[keys].title}</h3>
+//           <button class="swiper_btn">Read More</button>
+//           </div>
+//         </div> `
+//       }
+//     }
+//   }
+// })
