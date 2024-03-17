@@ -17,7 +17,6 @@ onValue(ref(dataBase, "/books"), (response) => {
     swiperWrapper.innerHTML += `
         <div class="swiper-slide">
        <div class="catalog_swiper_card">
-       <span>New</span>
        <img class="swiper_img" src="${result[book].imageURL}" alt="">
        <h3 class="swiper_book">${result[book].title}</h3>
        <button class="swiper_btn">Read More</button>
@@ -26,6 +25,27 @@ onValue(ref(dataBase, "/books"), (response) => {
   }
   swiper()
 });
+
+onValue(ref(dataBase, "/books"), (response) => {
+  const result = response.val();
+  swiperWrapper.innerHTML = "";
+
+  for (const book in result) {
+    if (result[book].new=="true") {
+      console.log(result[book].new);
+    swiperWrapper.innerHTML += `
+        <div class="swiper-slide">
+       <div class="catalog_swiper_card">
+       <span>New</span>
+       <img class="swiper_img" src="${result[book].imageURL}" alt="">
+       <h3 class="swiper_book">${result[book].title}</h3>
+       <button class="swiper_btn">Read More</button>
+       </div>
+     </div> `;
+  }
+  swiper()
+};
+
 
 function swiper() {
   const swiper_all = new Swiper(".swiper.swiper_catalog", {
@@ -139,5 +159,6 @@ function swiper() {
         spaceBetween: 20,
       },
     },
-  })
-}
+  });
+};
+});
