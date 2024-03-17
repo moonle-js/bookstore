@@ -376,7 +376,7 @@ function detectUser(valueFromPrompt, passwordFromPrompt){
                     </p>
             </a>
 
-            <a class="anchors" href="#">
+            <a class="anchors" href="">
                 <img 
                 src="./assets/images/adminPanel/booksSmall.png" 
                 alt="anchorHome"

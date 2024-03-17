@@ -1,19 +1,13 @@
 import dataBase from "../javascripts/database.mjs  ";
 import {
   ref,
-  set,
   get,
-  onValue,
-  remove,
-  push,
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
 document.querySelector('#searchBookButton').addEventListener('click', function(e){
     e.preventDefault();
     var searchBook = document.querySelector('#searchBook');
     if(searchBook.value.trim()){
-        var array = searchBook.value.split(' ');
-
         get(ref(dataBase, 'books')).then(response => {
             if(response.exists()){
                 for(let keys in response.val()){
@@ -39,6 +33,7 @@ document.querySelector('#searchBookButton').addEventListener('click', function(e
                         </div>
                             
                         `
+                        return
                     }else{
                         document.querySelector('.rightSide').innerHTML = `
                             <div id="addedInfo">
