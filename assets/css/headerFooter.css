@@ -156,6 +156,7 @@ header *{
             header nav ul li:nth-child(3) div.hamburger{
                 display: none;
                 flex-direction: column;
+                cursor: pointer;
                 justify-content: space-around;
                 align-items: center;
                 width: 50px;
