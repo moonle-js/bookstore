@@ -15,3 +15,7 @@
             url(../fonts/Crimson_Text/CrimsonText-BoldItalic.ttf),
             url(../fonts/Crimson_Text/CrimsonText-SemiBold.ttf);
 }
+@font-face {
+    font-family: "Nunito";
+    src: url(../fonts/Nunito_Sans/NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.ttf);
+}

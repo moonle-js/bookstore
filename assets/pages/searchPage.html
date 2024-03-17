@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../css/contactUs.css">
-    <script src="../javascripts/contactUs.js" defer type="module"></script>
+    <link rel="stylesheet" href="../css/searchPage.css">
 
     <title>Search Page</title>
 
+    <script src="../javascripts/searchPage.js" type="module" defer></script>
 
 </head>
 <body>
@@ -99,31 +99,23 @@
 
 
 <main>
-    <form class="sec_1">
-        <label for="fullName">
-            Contact Us
-        </label>
+    <section class="sec_1">
+        <div class="leftSide">
+            <h1>
+                Search
+            </h1>
+            <form action="">
+                <input type="text" name="searchBook" placeholder="Search Book..." id="searchBook">
+                <button id="searchBookButton">Search</button>
+            </form>
+        </div> 
 
-        <div class="mainInfos">
-            <div>
-                <input type="text" name="Full Name" id="fullName" placeholder="Full name">
-                <input type="text" name="address" id="address" placeholder="Address">
-            </div>
+        <div class="rightSide">
+            
 
-            <div>
-                <input type="email" name="email" id="emaill" placeholder="Email">
-                <input type="number" name="phonenumber" id="phonenumber" placeholder="Phone">
-            </div>
+            
         </div>
-
-        <div class="noteDiv">
-            <textarea name="note" id="note" cols="30" rows="10" placeholder="Note"></textarea>
-        </div>
-
-        <button id="sendNoteToDB">
-            Send
-        </button>
-    </form>
+    </section>
 
     <section class="socMedias">
         <h6>
