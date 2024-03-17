@@ -2,6 +2,10 @@
 @import url(./fonts.css);
 body{
     background: var(--body_background);
+    min-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 main{
     display: flex;
@@ -10,13 +14,14 @@ main{
     justify-content: space-between;
     row-gap: 50px;
     width: 100%;
+    max-width: 1300px;
     min-height: 60vh;
 }
     .sec_1{
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 90%;
+        width: 100%;
         min-height: 700px;
         height: calc(100% - 200px);
     }
@@ -30,7 +35,6 @@ main{
             min-height: 50vh;
         }
             .leftSide h1{
-                padding-left: 10%;
                 font-family: "Montserrat";
                 font-size: 2em;
                 font-weight: 900;
@@ -43,7 +47,7 @@ main{
                 row-gap: 30px;
                 display: flex;
                 flex-direction: column;
-                align-items: center;
+                align-items: flex-start;
                 justify-content: space-evenly;
             }
                 .leftSide form input,
