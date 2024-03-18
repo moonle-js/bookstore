@@ -1,6 +1,6 @@
 // Importing database and functions from firebase and module js file
 import dataBase from "./database.mjs";
-import {set, get, ref, onValue, remove} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
+import {set, get, ref, onValue, remove, push} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
 var refDB = ref(dataBase);
 
 
@@ -35,13 +35,15 @@ var fullName                =           document.querySelector('#fullname'),
 
 
 
-    joinButton.addEventListener('click', function(){
+    joinButton.addEventListener('click', async function(e){
+        e.preventDefault()
         if(fullName.value.trim() && email.value.trim()){
             var snapshot = push(ref(dataBase)).key;
-            set(ref(dataBase, `users/joinedUsers/${snapshot}/name`), `${fullName.value.trim()}`)
-            set(ref(dataBase, `users/joinedUsers/${snapshot}/mailbox`), `${email.value.trim()}`)
+            console.log(snapshot)
+            await set(ref(dataBase, `users/joinedUsers/${snapshot}/name`), `${fullName.value.trim()}`)
+            await set(ref(dataBase, `users/joinedUsers/${snapshot}/mailbox`), `${email.value.trim()}`)
+            showNone()
         }
-        showNone();
     }) 
 
 

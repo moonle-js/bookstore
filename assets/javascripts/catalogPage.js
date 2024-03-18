@@ -55,7 +55,6 @@ onValue(ref(dataBase, "books"), data => {
   if(data.exists()){
     document.querySelector('#all_swiper_books').innerHTML = ""
     for(let keys in data.val()){
-      console.log('salam')
       if(data.val()[keys].new == "true"){
         document.querySelector('#all_swiper_books').innerHTML += `
         <div class="swiper-slide">
@@ -139,7 +138,6 @@ function getCategories(){
         document.querySelectorAll('.showThisCategory').forEach(function(item){
           item.addEventListener('click', function(e){
             window.scroll(0, 600)
-            console.log('salam')
             showSelectedCategory(`${this.id}`)
           })
         })
@@ -258,7 +256,6 @@ function showBestSellers(){
     if(result.exists()){
       document.querySelector('#selected_swiper_books').innerHTML = ""
       for(let key in result.val()){
-        console.log(result.val()[key])
         if(result.val()[key].counter >= 10){
           if(result.val()[key].new == "true"){
             document.querySelector('#selected_swiper_books').innerHTML += `
