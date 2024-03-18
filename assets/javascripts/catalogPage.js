@@ -113,7 +113,7 @@ function getCategories(){
         `
         document.querySelectorAll('.showThisCategory').forEach(function(item){
           item.addEventListener('click', function(e){
-            window.scroll(0, 1000)
+            window.scroll(0, 600)
             console.log('salam')
             showSelectedCategory(`${this.id}`)
           })
@@ -226,3 +226,31 @@ const selected_release_swiper = new Swiper(".swiper.selected_swiper_catalog", {
     },
   },
 });
+
+
+function showBestSellers(){
+  get(ref(dataBase, 'books/')).then(result => {
+    if(result.exists()){
+      document.querySelector('#selected_swiper_books').innerHTML = ""
+      for(let key in result.val()){
+        console.log(result.val()[key])
+        if(result.val()[key].counter >= 10){
+          console.log('coxdu')
+          document.querySelector('#selected_swiper_books').innerHTML += `
+          <div class="swiper-slide">
+            <div class="catalog_swiper_card">
+            <span>New</span>
+            <img class="swiper_img" src="${result.val()[key].imageURL}" alt="">
+            <h3 class="swiper_book">${result.val()[key].title}</h3>
+            <button class="swiper_btn">Read More</button>
+            </div>
+          </div>
+          `
+          selected_release_swiper.update()
+        }
+      }
+    }
+  })
+}
+
+showBestSellers()
