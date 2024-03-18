@@ -1,6 +1,5 @@
   body {
 	background-color: #FFFAF5;
-
   }
   
   .container {
@@ -134,4 +133,10 @@
 .swiper-button-next:after,
 .swiper-button-prev:after {
   content: "";
+}
+
+@media screen and (max-width: 700px){
+  .swipper_page{
+    padding-top: 20px;
+  }
 }

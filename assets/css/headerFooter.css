@@ -75,7 +75,7 @@ header *{
                             background: var(--black);
                         }
                         header nav ul li#first a div.header_logo_text .header_logo_text_second{
-                            color: var(--, #241400);
+                            color: var(--black_text);
                             font-family: "Montserrat";
                             font-size: 0.95em;
                             font-style: normal;
