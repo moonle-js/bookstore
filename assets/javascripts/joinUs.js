@@ -1,3 +1,9 @@
+// Importing database and functions from firebase and module js file
+import dataBase from "./database.mjs";
+import {set, get, ref, onValue, remove} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
+var refDB = ref(dataBase);
+
+
 var joinUs                  =           document.querySelector('#join_us'),
     joinUsText              =           document.querySelector("#join_us_p"),
     joinUsPanel             =           document.querySelector('#join_us_panel'),
@@ -13,6 +19,8 @@ var fullName                =           document.querySelector('#fullname'),
         fullName.value = "";
         joinUsPanel.style.display = "none";
     }
+
+
     function show(){
         fullName.value = "";
         email.value = "";
@@ -21,13 +29,29 @@ var fullName                =           document.querySelector('#fullname'),
 
     joinUs.onclick = show;
     joinUsText.onclick = show;
-    exit.onclick = showNone;
-    joinButton.onclick = showNone;
 
+    exit.onclick = showNone;
+
+
+
+
+    joinButton.addEventListener('click', function(){
+        if(fullName.value.trim() && email.value.trim()){
+            var snapshot = push(ref(dataBase)).key;
+            set(ref(dataBase, `users/joinedUsers/${snapshot}/name`), `${fullName.value.trim()}`)
+            set(ref(dataBase, `users/joinedUsers/${snapshot}/mailbox`), `${email.value.trim()}`)
+        }
+        showNone();
+    }) 
+
+
+
+    
 fullName.style.textTransform = "capitalize";
 
 
 
+// Hamburger
 var links = document.querySelector('#links'),
     hamburger = document.querySelector('#hamburger'),
     sectionOne = document.querySelector('.sec_1'),
@@ -36,7 +60,6 @@ var links = document.querySelector('#links'),
 
 
     hamburger.onclick = function() {
-    
         if(sectionOne.style.marginTop === "200px"){
             sectionOne.style.marginTop = "50px";
         }else{
