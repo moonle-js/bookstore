@@ -56,6 +56,7 @@ onValue(ref(dataBase, "books"), data => {
     document.querySelector('#all_swiper_books').innerHTML = ""
     for(let keys in data.val()){
       console.log('salam')
+      if(data.val()[keys].new == "true"){
         document.querySelector('#all_swiper_books').innerHTML += `
         <div class="swiper-slide">
           <div class="catalog_swiper_card">
@@ -65,6 +66,17 @@ onValue(ref(dataBase, "books"), data => {
           <button class="swiper_btn">Read More</button>
           </div>
         </div> `
+      }else{
+        document.querySelector('#all_swiper_books').innerHTML += `
+        <div class="swiper-slide">
+          <div class="catalog_swiper_card">
+          <img class="swiper_img" src="${data.val()[keys].imageURL}" alt="">
+          <h3 class="swiper_book">${data.val()[keys].title}</h3>
+          <button class="swiper_btn">Read More</button>
+          </div>
+        </div> `
+      }
+        
         swiper_all.update()
     }
   }
@@ -81,16 +93,29 @@ function showSelectedCategory(categoryName){
           document.querySelector('#selected_swiper_books').innerHTML = ""
           for(let key in result.val()){
             if(result.val()[key].category == categoryName){
-              document.querySelector('#selected_swiper_books').innerHTML += `
-              <div class="swiper-slide">
-                <div class="catalog_swiper_card">
-                <span>New</span>
-                <img class="swiper_img" src="${result.val()[key].imageURL}" alt="">
-                <h3 class="swiper_book">${result.val()[key].title}</h3>
-                <button class="swiper_btn">Read More</button>
-                </div>
-              </div> 
-              `
+              if(result.val()[key].new == "true"){
+                document.querySelector('#selected_swiper_books').innerHTML += `
+                <div class="swiper-slide">
+                  <div class="catalog_swiper_card">
+                  <span>New</span>
+                  <img class="swiper_img" src="${result.val()[key].imageURL}" alt="">
+                  <h3 class="swiper_book">${result.val()[key].title}</h3>
+                  <button class="swiper_btn">Read More</button>
+                  </div>
+                </div> 
+                `
+              }else{
+                document.querySelector('#selected_swiper_books').innerHTML += `
+                <div class="swiper-slide">
+                  <div class="catalog_swiper_card">
+                  <img class="swiper_img" src="${result.val()[key].imageURL}" alt="">
+                  <h3 class="swiper_book">${result.val()[key].title}</h3>
+                  <button class="swiper_btn">Read More</button>
+                  </div>
+                </div> 
+                `
+              }
+              
               selected_release_swiper.update()
             }
           }
@@ -235,17 +260,28 @@ function showBestSellers(){
       for(let key in result.val()){
         console.log(result.val()[key])
         if(result.val()[key].counter >= 10){
-          console.log('coxdu')
-          document.querySelector('#selected_swiper_books').innerHTML += `
-          <div class="swiper-slide">
-            <div class="catalog_swiper_card">
-            <span>New</span>
-            <img class="swiper_img" src="${result.val()[key].imageURL}" alt="">
-            <h3 class="swiper_book">${result.val()[key].title}</h3>
-            <button class="swiper_btn">Read More</button>
+          if(result.val()[key].new == "true"){
+            document.querySelector('#selected_swiper_books').innerHTML += `
+            <div class="swiper-slide">
+              <div class="catalog_swiper_card">
+              <span>New</span>
+              <img class="swiper_img" src="${result.val()[key].imageURL}" alt="">
+              <h3 class="swiper_book">${result.val()[key].title}</h3>
+              <button class="swiper_btn">Read More</button>
+              </div>
             </div>
-          </div>
-          `
+            `
+          }else{
+            document.querySelector('#selected_swiper_books').innerHTML += `
+            <div class="swiper-slide">
+              <div class="catalog_swiper_card">
+              <img class="swiper_img" src="${result.val()[key].imageURL}" alt="">
+              <h3 class="swiper_book">${result.val()[key].title}</h3>
+              <button class="swiper_btn">Read More</button>
+              </div>
+            </div>
+            `
+          }
           selected_release_swiper.update()
         }
       }
