@@ -87,7 +87,7 @@ header *{
         header nav ul li:nth-child(2){
             justify-content: center;
             align-items: center;
-            width: 50%;
+            min-width: 40%;
             max-width: 400px;
             height: 100%;
         }
@@ -359,6 +359,31 @@ footer{
         font-style: normal;
         font-weight: 400;
         line-height: 196.187%;
+    }
+
+/* Request call */
+.requestCall{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    .requestCall p{
+        font-family: "Roboto";
+        font-size: 1em;
+        font-weight: 900;
+    }
+    #requestCallButton{
+        width: 80%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        border: 2px solid var(--orange_background);
+        background: transparent;
+        color: var(--orange_text);
+        height: 40px;
+        cursor: pointer;
+        font-family: "Montserrat";
     }
 /* Absolute side */
     .absolute{

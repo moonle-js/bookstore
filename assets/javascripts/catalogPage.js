@@ -312,3 +312,23 @@ function updateReadMoreButtons(){
     })
   })
 }
+
+// Getting infor from category in index page
+
+window.addEventListener('load', function(){
+  var searchParams = new URLSearchParams(window.location.search);
+  var selectedBook = searchParams.get('selectedCategory');
+  
+  get(ref(dataBase, `bookTypes/`)).then(data => {
+      if(data.exists()){
+          for(let key in data.val()){
+
+              if(data.val()[key] == selectedBook){
+                showSelectedCategory(data.val()[key])
+                  
+              }
+          }
+      }
+  })
+
+})

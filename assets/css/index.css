@@ -1,7 +1,6 @@
 @import url(./headerFooter.css);
 
 body{
-    font-size: 14px;
     background: var(--body_background);
     position: relative;
 }
@@ -53,6 +52,7 @@ section{
         }
         .sec_1 article button{
             width: 200px;
+            cursor: pointer;
             background-color: var(--orange_background);
             color: var(--white_text);
             min-height: 50px;
@@ -63,7 +63,12 @@ section{
             font-style: normal;
             font-weight: 900;
             line-height: 196.187%;
-            border: none;
+            border: 2px solid var(--orange_background);
+            transition: .4s all ease;
+        }
+        .sec_1 article button:hover{
+            background: var(--body_background);
+            color: var(--orange_background);
         }
     .sec_1 .right_side{
         width: 50%;
