@@ -581,7 +581,7 @@ main{
 
 /* Join Us info table */
 
-#joinUsSection, #BooksSection, #contactUsSection, #aboutUsFromFirebaseSection{
+#joinUsSection, #BooksSection, #contactUsSection, #aboutUsFromFirebaseSection, #onlineUsers{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -589,11 +589,14 @@ main{
     margin-top: 50px;
     min-height: 200px;
     width: 60%;
-    max-width: 550px;
+}
+#onlineUsers, #joinUsSection{
+    max-width: 550px !important;
 }
     #joinUsSection h4,
     #BooksSection h4,
-    #contactUsSection h4{
+    #contactUsSection h4,
+    #onlineUsers h4{
         font-family: "Roboto";
         font-size: 1.4em;
         color: var(--black_text);
@@ -633,7 +636,8 @@ main{
         /* Books Section */
     #BooksSection,
     #contactUsSection,
-    #aboutUsFromFirebaseSection{
+    #aboutUsFromFirebaseSection,
+    #onlineUsers{
         max-width: 1100px;
         width: 80%;
     }
@@ -705,7 +709,8 @@ main{
             /* contactUsSection  */
 
 #contactUsSection,
-#aboutUsFromFirebaseSection{
+#aboutUsFromFirebaseSection,
+#onlineUsers{
     margin-bottom: 50px;
 }
 @media screen and (max-width: 700px){

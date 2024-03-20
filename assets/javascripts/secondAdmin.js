@@ -208,6 +208,36 @@ function getBookInformation(){
     }
 }
 
+// Online users section
+
+function getOnlineUsers(){
+    try{
+        onValue(ref(dataBase, 'users/joinedUsers'),async result => {
+            if(result.exists()){
+                var allUsers = 0;
+                var onlineUsers = 0;
+                for(let key in result.val()){
+                    allUsers++;
+                    if(result.val()[key].online == true){
+                        onlineUsers++;
+                    }
+                }
+                document.querySelector('#onlineUsersBody').innerHTML = ''
+                document.querySelector('#onlineUsersBody').innerHTML += `
+                <tr>
+                    <td>${allUsers}</td>
+                    <td>${onlineUsers}</td>
+                </tr>
+                `
+                allUsers = 0;
+                onlineUsers = 0
+            }
+        })
+    }catch (error){
+        console.log('some information is not found')
+    }
+}
+
 
 // Adding new book type
 var addingTypeForm = document.querySelector('#typeAddingInfo');
@@ -319,6 +349,7 @@ function aboutUsFromFirebase(){
     typeFromFirebase()
     contactUsFromFirebase()
     aboutUsFromFirebase()
+    getOnlineUsers()
 
 
 

@@ -4,6 +4,27 @@ import {set, get, ref, onValue, remove, push} from "https://www.gstatic.com/fire
 var refDB = ref(dataBase);
 
 
+
+window.addEventListener('load', function(){
+    get(ref(dataBase, 'users/joinedUsers')).then( data => {
+        var nameOfUser = localStorage.getItem('bookstoreUser')
+        if(data.exists()){
+            for(let key in data.val()){
+                if(data.val()[key].snapshot === nameOfUser){
+                    set(ref(dataBase, `users/joinedUsers/${nameOfUser}/online`), true)
+                }
+            }
+        }
+    })
+})
+
+window.addEventListener('beforeunload', function(){
+    var nameOfUser = localStorage.getItem('bookstoreUser')
+    if(nameOfUser){
+        set(ref(dataBase, `users/joinedUsers/${nameOfUser}/online`), false)
+    }
+})
+
 var joinUs                  =           document.querySelector('#join_us'),
     joinUsText              =           document.querySelector("#join_us_p"),
     joinUsPanel             =           document.querySelector('#join_us_panel'),
@@ -39,10 +60,13 @@ var fullName                =           document.querySelector('#fullname'),
         e.preventDefault()
         if(fullName.value.trim() && email.value.trim()){
             var snapshot = push(ref(dataBase)).key;
-            console.log(snapshot)
+            localStorage.setItem('bookstoreUser', `${snapshot}`)
             await set(ref(dataBase, `users/joinedUsers/${snapshot}/name`), `${fullName.value.trim()}`)
+            await set(ref(dataBase, `users/joinedUsers/${snapshot}/snapshot`), `${snapshot}`)
             await set(ref(dataBase, `users/joinedUsers/${snapshot}/mailbox`), `${email.value.trim()}`)
+            await set(ref(dataBase, `users/joinedUsers/${snapshot}/online`), true)
             showNone()
+            window.location.reload();
         }
     }) 
 

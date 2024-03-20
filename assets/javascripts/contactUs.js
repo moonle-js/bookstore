@@ -10,7 +10,15 @@ var emaill = document.querySelector('#emaill')
 
 var emailChecker = /\w+\@\w+\.\w+/g
 
-
+var nameOfUser = localStorage.getItem('bookstoreUser')
+if(nameOfUser){
+    get(ref(dataBase, `users/joinedUsers/${nameOfUser}`)).then(result=>{
+        if(result.exists()){
+            document.querySelector('#fullNamee').value = `${result.val().name}`
+            document.querySelector('#emaill').value = `${result.val().mailbox}`
+        }
+    })
+}
 
 
 sendNoteToDB.addEventListener('click', function(e){

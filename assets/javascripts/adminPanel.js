@@ -299,6 +299,30 @@ function detectUser(valueFromPrompt, passwordFromPrompt){
                         </table>
                     </div>
 
+
+                    <!-- Online Users -->
+
+                    <div id="onlineUsers">
+                        <h4>
+                            Online Users
+                        </h4>
+
+                        <table id="onlineUsersMainTable">
+                            <thead>
+                                <tr>
+                                    <th>All users</th>
+                                    <th>Online users</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="onlineUsersBody">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Online Users -->
+
                 </div>
             </div>
                 `
