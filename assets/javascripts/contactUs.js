@@ -40,3 +40,6 @@ sendNoteToDB.addEventListener('click', function(e){
         alert('Please fill prompts correctly')
     }
 })
+
+
+

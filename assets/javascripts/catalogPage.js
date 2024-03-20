@@ -81,48 +81,6 @@ onValue(ref(dataBase, "books"), data => {
   }
 })
 
-function showSelectedCategory(categoryName){
-  get(ref(dataBase, `bookTypes/${categoryName}`)).then(data => {
-    if(data.exists()){
-      document.querySelector('#category_swiper').innerHTML = `
-          <h2 class="catalog_title">${data.val()}</h2>
-        `
-      onValue(ref(dataBase, 'books/'), result => {
-        if(result.exists()){
-          document.querySelector('#selected_swiper_books').innerHTML = ""
-          for(let key in result.val()){
-            if(result.val()[key].category == categoryName){
-              if(result.val()[key].new == "true"){
-                document.querySelector('#selected_swiper_books').innerHTML += `
-                <div class="swiper-slide">
-                  <div class="catalog_swiper_card">
-                  <span>New</span>
-                  <img class="swiper_img" src="${result.val()[key].imageURL}" alt="">
-                  <h3 class="swiper_book">${result.val()[key].title}</h3>
-                  <button class="swiper_btn">Read More</button>
-                  </div>
-                </div> 
-                `
-              }else{
-                document.querySelector('#selected_swiper_books').innerHTML += `
-                <div class="swiper-slide">
-                  <div class="catalog_swiper_card">
-                  <img class="swiper_img" src="${result.val()[key].imageURL}" alt="">
-                  <h3 class="swiper_book">${result.val()[key].title}</h3>
-                  <button class="swiper_btn">Read More</button>
-                  </div>
-                </div> 
-                `
-              }
-              
-              selected_release_swiper.update()
-            }
-          }
-        }
-      })
-    }
-  })
-}
 
 // Show All Categories from Firebase
 function getCategories(){
@@ -252,7 +210,7 @@ const selected_release_swiper = new Swiper(".swiper.selected_swiper_catalog", {
 
 
 function showBestSellers(){
-  get(ref(dataBase, 'books/')).then(result => {
+  onValue(ref(dataBase, 'books/'), result => {
     if(result.exists()){
       document.querySelector('#selected_swiper_books').innerHTML = ""
       for(let key in result.val()){
@@ -280,10 +238,77 @@ function showBestSellers(){
             `
           }
           selected_release_swiper.update()
+          updateReadMoreButtons()
         }
       }
     }
   })
 }
 
+
+
+function showSelectedCategory(categoryName){
+  onValue(ref(dataBase, `bookTypes/${categoryName}`),data => {
+    if(data.exists()){
+      document.querySelector('#category_swiper').innerHTML = `
+          <h2 class="catalog_title">${data.val()}</h2>
+        `
+      onValue(ref(dataBase, 'books/'), result => {
+        if(result.exists()){
+          document.querySelector('#selected_swiper_books').innerHTML = ""
+          for(let key in result.val()){
+            if(result.val()[key].category == categoryName){
+              if(result.val()[key].new == "true"){
+                document.querySelector('#selected_swiper_books').innerHTML += `
+                <div class="swiper-slide">
+                  <div class="catalog_swiper_card">
+                  <span>New</span>
+                  <img class="swiper_img" src="${result.val()[key].imageURL}" alt="">
+                  <h3 class="swiper_book">${result.val()[key].title}</h3>
+                  <button class="swiper_btn">Read More</button>
+                  </div>
+                </div> 
+                `
+              }else{
+                document.querySelector('#selected_swiper_books').innerHTML += `
+                <div class="swiper-slide">
+                  <div class="catalog_swiper_card">
+                  <img class="swiper_img" src="${result.val()[key].imageURL}" alt="">
+                  <h3 class="swiper_book">${result.val()[key].title}</h3>
+                  <button class="swiper_btn">Read More</button>
+                  </div>
+                </div> 
+                `
+              }
+              
+              selected_release_swiper.update()
+              updateReadMoreButtons()
+            }
+          }
+        }
+      })
+    }
+  })
+}
+
+onValue(ref(dataBase, 'books/'),result => {
+  if(result.exists()){
+    updateReadMoreButtons()
+  }
+})
+
 showBestSellers()
+
+// Sending page
+
+function updateReadMoreButtons(){
+  document.querySelectorAll('.swiper_btn')
+  .forEach(function(item) {
+    item.addEventListener('click', function(){
+    
+      var selectedBook = item.parentNode.querySelector('.swiper_book').innerHTML;
+    
+      window.location.href = '/assets/pages/readmore.html?selectedBook=' + encodeURIComponent(selectedBook);
+    })
+  })
+}

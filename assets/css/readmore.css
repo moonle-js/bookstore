@@ -1,0 +1,103 @@
+@import url(./headerFooter.css);
+body{
+    background: var(--body_background);
+}
+main{
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 100px;
+    row-gap: 50px;
+    width: 100%;
+    max-width: 100vw;
+    min-height: 60vh;
+    background: var(--body_background);
+}
+    #mainSEction{
+        display: flex;
+        justify-content: space-evenly;
+        width: 80%;
+        height: 100%;
+        align-items: center;
+    }
+        #leftSide{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            width: 40%;
+            height: 100%;
+            row-gap: 20px;
+        }
+            #leftSide h1{
+                font-size: 2em;
+                font-family: "Montserrat";
+                font-weight: 900;
+            }
+            #leftSide p{
+                font-size: 1em;
+                font-family: "Montserrat";
+                font-weight: 500;
+                letter-spacing: .05em;
+                line-height: 30px;
+            }
+        #rightSide{
+            width: 40%;
+            height: 80%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+            #rightSide img{
+                width: auto;
+                height: 100%;
+                max-height: 570px;
+            }
+
+
+@media screen and (max-width: 700px){
+    #mainSEction{
+        flex-direction: column;
+        row-gap: 20px;
+    }
+    #mainSEction div{
+        width: 90%;
+    }
+}
+
+
+.socMedias{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 30px;
+    min-height: 200px;
+    align-items: center;
+}
+    .socMedias h6{
+        color: var(--black_text);
+        font-size: 1.8em;
+        font-family: "Montserrat";
+        font-style: normal;
+        font-weight: 900;
+    }
+    .socMedias div.contacts{
+        display: flex;
+        column-gap: 50px;
+        justify-content: space-between;
+        align-items: center;
+    }
+        .socMedias div.contacts img{
+            cursor: pointer;
+            width: 80px;
+            height: auto;
+        }
+
+@media screen and (max-width: 700px){
+    .mainInfos{
+        flex-direction: column;
+        row-gap: 20px;
+    }
+}
