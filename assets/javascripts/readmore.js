@@ -32,3 +32,6 @@ window.addEventListener('load', function(){
     })
 
 })
+document.querySelector('#goBackButton').addEventListener('click', function(){
+    window.location = "/assets/pages/catalogPage.html"
+})
