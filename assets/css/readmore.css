@@ -86,10 +86,32 @@ main{
 }
 
 /* comment*/
+ .comment_content {
+    width: 50%;
+    margin: 0 0 50px 70px;
+ }
+
+ #commentInput {
+    flex: 1;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.25);
+    border: none;
+    border-radius: 4px;
+    padding-left: 30px;
+    font-family: "Roboto";
+ }
+ input::placeholder {
+    font-family: "Roboto";
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 23.44px;
+    color: #232323;
+}
+
+
 .comment_form{
-    margin: 100px  0 50px;
+    
     display: flex;
-    align-items: center;
+    flex-direction: row;
   }
   .comment_form input{
     max-width: 635px;
@@ -103,7 +125,6 @@ main{
     line-height: normal;
     letter-spacing: 1px;
     border-radius: 5px;
-    background: rgba(255, 255, 255, 0.80);
     box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.15);
     outline: none;
     border: 1px solid #ddd;
@@ -116,28 +137,24 @@ main{
     outline: none;
     height: 60px;
   }
-  .comment_list{
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    max-width: 690px;
-  }
-  .comment_list li .user_comment{
+
+  .comment_box li  {
+    
+    flex-shrink: 0;
     border-radius: 5px;
-    background: #FFF;
+    background-color: #ffff;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    padding: 28px 28px;
     display: flex;
+    justify-content: center;
+    gap: 14px;
     flex-direction: column;
-    gap: 18px;
+    padding: 28px 18px;
+    margin-bottom: 43px;
   }
-  .user_comment{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 20px;
-  }
-  .user_comment h4{
+ 
+ 
+ 
+  .sender h4{
     color: #232323;
     font-family: 'Roboto';
     font-size: 16px;
@@ -145,7 +162,7 @@ main{
     font-weight: 500;
     line-height: normal;
   }
-  .user_comment span{
+  .addedTime {
     color: #232323;
     font-family: 'Rubik';
     font-size: 16px;
@@ -153,9 +170,9 @@ main{
     font-weight: 400;
     line-height: 24px; /* 150% */
   }
-  .user_comment p{
+  .message {
     color: #232323;
-    font-family: Rubik;
+    font-family: "Rubik";
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
