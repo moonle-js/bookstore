@@ -146,6 +146,29 @@ const new_release_swiper = new Swiper(".swiper.new_swiper_catalog", {
   },
 });
 
+function setNewLabel(bookName){
+  console.log(bookName)
+  var period;
+  get(ref(dataBase, `books/${bookName}`)).then(result => {
+    if(result.exists()){
+      var addedTime = new Date(`${result.val().dateRelease}`)
+      var currentTime = new Date()
+      console.log(addedTime)
+      console.log(currentTime)
+
+      period = currentTime.getTime() - addedTime.getTime()
+      console.log(period)
+    }
+  })
+  if(parseInt(period) >= 2629746000){
+    console.log("Kohne")
+    return ""
+  }else{
+    console.log('Yeni')
+    return '<span>New</span>'
+  }
+}
+
 // Adding new releases
 onValue(ref(dataBase, "books/"), data => {
   if(data.exists()){
@@ -157,7 +180,7 @@ onValue(ref(dataBase, "books/"), data => {
         document.querySelector('#new_swiper_books').innerHTML += `
         <div class="swiper-slide">
           <div class="catalog_swiper_card">
-          <span>New</span>
+          ${setNewLabel(data.val()[keys].title)}
           <img class="swiper_img" src="${data.val()[keys].imageURL}" alt="">
           <h3 class="swiper_book">${data.val()[keys].title}</h3>
           <button class="swiper_btn">Read More</button>
@@ -219,7 +242,7 @@ function showBestSellers(){
             document.querySelector('#selected_swiper_books').innerHTML += `
             <div class="swiper-slide">
               <div class="catalog_swiper_card">
-              <span>New</span>
+              ${setNewLabel(data.val()[key].title)}
               <img class="swiper_img" src="${result.val()[key].imageURL}" alt="">
               <h3 class="swiper_book">${result.val()[key].title}</h3>
               <button class="swiper_btn">Read More</button>
@@ -273,6 +296,7 @@ function showSelectedCategory(categoryName){
                 document.querySelector('#selected_swiper_books').innerHTML += `
                 <div class="swiper-slide">
                   <div class="catalog_swiper_card">
+                  ${setNewLabel(result.val()[key].title)}
                   <img class="swiper_img" src="${result.val()[key].imageURL}" alt="">
                   <h3 class="swiper_book">${result.val()[key].title}</h3>
                   <button class="swiper_btn">Read More</button>
