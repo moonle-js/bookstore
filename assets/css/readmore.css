@@ -85,6 +85,83 @@ main{
     }
 }
 
+/* comment*/
+.comment_form{
+    margin: 100px  0 50px;
+    display: flex;
+    align-items: center;
+  }
+  .comment_form input{
+    max-width: 635px;
+    width: 100%;
+    padding: 16px 38px;
+    color: #232323;
+    font-family: 'Roboto';
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.80);
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.15);
+    outline: none;
+    border: 1px solid #ddd;
+  }
+  .comment_form button{
+    background-color: #E16A00;
+    width: 60px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    height: 60px;
+  }
+  .comment_list{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 690px;
+  }
+  .comment_list li .user_comment{
+    border-radius: 5px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 28px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .user_comment{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+  }
+  .user_comment h4{
+    color: #232323;
+    font-family: 'Roboto';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  .user_comment span{
+    color: #232323;
+    font-family: 'Rubik';
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+  }
+  .user_comment p{
+    color: #232323;
+    font-family: Rubik;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+  }
+
 
 .socMedias{
     display: flex;
