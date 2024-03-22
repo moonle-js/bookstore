@@ -1,12 +1,12 @@
 import dataBase from "./database.mjs";
 import {set, get, ref, onValue,push, remove} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
 
-
-window.addEventListener('load', function(){
+    var selectedBook;
+window.addEventListener('load', async function(){
     var searchParams = new URLSearchParams(window.location.search);
-    var selectedBook = searchParams.get('selectedBook');
+    selectedBook = searchParams.get('selectedBook');
     
-    get(ref(dataBase, `books/`)).then(data => {
+    await get(ref(dataBase, `books/`)).then(data => {
         if(data.exists()){
             for(let key in data.val()){
 
@@ -30,6 +30,8 @@ window.addEventListener('load', function(){
             }
         }
     })
+    showAnonimComments()
+
 
 })
 document.querySelector('#goBackButton').addEventListener('click', function(){
@@ -40,53 +42,66 @@ document.querySelector('#goBackButton').addEventListener('click', function(){
 // comment
 
 let commentForm = document.querySelector(".comment_form")
-let commentTitle =document.querySelector("#commentInput")
+let commentTitle = document.querySelector("#commentInput")
 let addComment = document.querySelector("#addComment")
 let commentList = document.querySelector(".comment_list")
 
-// addComment.addEventListener('click', function(e){
-//     e.preventDefault();
-//      let commentTitle = document.querySelector("#commentInput");
-    
-//      if (commentTitle.value.trim()){
-//         set(ref(dataBase,'books/comment')).then(snapshot =>{
-//             if (snapshot.exists()) {
-               
-//             }
-//         })
+addComment.addEventListener('click',async function(e){
+    e.preventDefault();    
+     if (commentTitle.value.trim()){
+        
+        if(localStorage.getItem('bookstoreUser') != null || localStorage.getItem('bookstoreUser') != undefined){
+// comment information
+            var nameOfSelectedBook = document.querySelector('#leftSide h1').innerHTML;
+            var snapshot = push(ref(dataBase, `books/${nameOfSelectedBook.trim()}/comments`)).key
+            set(ref(dataBase,`books/${nameOfSelectedBook.trim()}/comments/${snapshot}/comment/`), commentTitle.value)
 
-//      }
+
+// Sender informtion
+            var commentSenderName = ''
+            await get(ref(dataBase, `users/joinedUsers/${localStorage.getItem('bookstoreUser')}`)).then(data => {
+                if(data.exists()){
+                    console.log(data.val().name)
+                    commentSenderName = data.val().name
+                    console.log(commentSenderName)
+                }
+            })
+            set(ref(dataBase,`books/${nameOfSelectedBook.trim()}/comments/${snapshot}/sender/`), commentSenderName)
+// date information
+
+            let sendedTime = new Date();
+            var tarix = `${sendedTime.getDate()} - ${sendedTime.getMonth() + 1} - ${sendedTime.getFullYear()}`
+            set(ref(dataBase,`books/${nameOfSelectedBook.trim()}/comments/${snapshot}/timeADded/`), tarix)
+        }else{
+            function show(){
+                document.querySelector('#join_us_panel').style.display = "flex";
+            }
+            show()
+        }
+    }
      
-// });
+});
 
-function showAnonimComments(snapshot) {
-    let commentTitle = document.querySelector("#commentInput");
-    let snapshot = push(ref(dataBase,'/books'))
-    set (ref(dataBase,`'books/comment`), commentTitle.value);
-    document.querySelector("#commentInput").innerHTML = "";
-    get (ref(dataBase,`'books/comment`).then(response => {
+// setting comment is done
 
+// show comments
+function showAnonimComments() {
+    let commentsBlock = document.querySelector(".comment_box");
+    onValue(ref(dataBase,`books/${selectedBook}/comments`),response => {
 
-        for(let keys in snapshot.val()){
-            if(snapshot.val()[keys]){
-                document.querySelector(".comment_list").innerHTML += `
-                <ul class="comment_list">
+        commentsBlock.innerHTML = ''
+
+        for(let keys in response.val()){
+            commentsBlock.innerHTML += `
                 <li>
                     <div class="user_comment">
-                        <h4 id="anonimPerson">${snapshot.val()[keys]}</h4>
-                        <span id= "dateTime">${snapshot.val()[keys]}</span>
-                        <p id= "commentTitle">${snapshot.val()[keys]}</p>
+                        <h4 id="anonimPerson">${response.val()[keys].sender}</h4>
+                        <span id= "commment">${response.val()[keys].comment}</span>
+                        <span id= "dateTime">${response.val()[keys].timeADded}</span>
                     </div>
                 </li>
-
-                </ul>
                 `
-                return
-            }
-            
         }
 
-    }));
-    
-
+    });
 };
