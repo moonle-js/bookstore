@@ -86,7 +86,7 @@ function searchBooks(element) {
 
 // adding book info to firebase
 async function addBookToFireBase(bookName, author, imageURL, descriptionOf, releaseDate, typeOfBook){
-    var dateSelector = /\d{2}\-\d{1,2}\-\d{4}/
+    var dateSelector = /\d{1,2}\-\d{1,2}\-\d{4}/
     if(bookName.value.trim() &&
         author.value.trim() &&
         imageURL.value.trim() && 
@@ -96,12 +96,13 @@ async function addBookToFireBase(bookName, author, imageURL, descriptionOf, rele
         releaseDate.value.match(dateSelector)){
         console.log('getdi')
             try{
-                console.log(releaseDate.value)
+                var addedDate = new Date()
+                var reqem = addedDate.getTime();
                 await set(ref(dataBase, `books/${bookName.value.trim()}/imageURL`), `${imageURL.value}`);
                 await set(ref(dataBase, `books/${bookName.value.trim()}/title`), `${bookName.value}`);
                 await set(ref(dataBase, `books/${bookName.value.trim()}/author`), `${author.value}`);
                 await set(ref(dataBase, `books/${bookName.value.trim()}/description`), `${descriptionOf.value}`);
-                await set(ref(dataBase, `books/${bookName.value.trim()}/dateRelease`), `${releaseDate.value}`);
+                await set(ref(dataBase, `books/${bookName.value.trim()}/dateRelease`), reqem);
                 await set(ref(dataBase, `books/${bookName.value.trim()}/isShown`), `false`);
                 await set(ref(dataBase, `books/${bookName.value.trim()}/category`), `${typeOfBook.value}`);
                 await set(ref(dataBase, `books/${bookName.value.trim()}/counter`), 0);
@@ -160,8 +161,6 @@ function getJoinedUsers(){
         }
     })
 }
-
-
 
 
 // Books Section

@@ -51,30 +51,19 @@ const swiper_all = new Swiper(".swiper.swiper_catalog", {
 
 // firebase for all books
 
-onValue(ref(dataBase, "books"), data => {
+onValue(ref(dataBase, "books"),async data => {
   if(data.exists()){
     document.querySelector('#all_swiper_books').innerHTML = ""
     for(let keys in data.val()){
-      if(data.val()[keys].new == "true"){
         document.querySelector('#all_swiper_books').innerHTML += `
         <div class="swiper-slide">
           <div class="catalog_swiper_card">
-          <span>New</span>
+          ${await setNewLabel(data.val()[keys].title)}
           <img class="swiper_img" src="${data.val()[keys].imageURL}" alt="">
           <h3 class="swiper_book">${data.val()[keys].title}</h3>
           <button class="swiper_btn">Read More</button>
           </div>
         </div> `
-      }else{
-        document.querySelector('#all_swiper_books').innerHTML += `
-        <div class="swiper-slide">
-          <div class="catalog_swiper_card">
-          <img class="swiper_img" src="${data.val()[keys].imageURL}" alt="">
-          <h3 class="swiper_book">${data.val()[keys].title}</h3>
-          <button class="swiper_btn">Read More</button>
-          </div>
-        </div> `
-      }
         
         swiper_all.update()
     }
@@ -145,51 +134,45 @@ const new_release_swiper = new Swiper(".swiper.new_swiper_catalog", {
     },
   },
 });
+var period = 0;
 
-function setNewLabel(bookName){
-  console.log(bookName)
-  var period;
-  get(ref(dataBase, `books/${bookName}`)).then(result => {
+async function setNewLabel(bookName){
+  await get(ref(dataBase, `books/${bookName}`)).then(result => {
     if(result.exists()){
-      console.log(result.val().dateRelease)
-      var addedTime = new Date(`${result.val().dateRelease}`)
-
+      var addedTime = result.val().dateRelease
       var currentTime = new Date()
-      console.log(addedTime.toDateString())
-      console.log(currentTime)
-
-      period = currentTime.getTime() - addedTime.getTime()
-      console.log(period)
+      period = currentTime.getTime() - addedTime
     }
   })
-  if(parseInt(period) >= 2629746000){
-    console.log("Kohne")
+  if(period > 2629800000){
     return ""
   }else{
-    console.log('Yeni')
     return '<span>New</span>'
   }
 }
 
 // Adding new releases
-onValue(ref(dataBase, "books/"), data => {
+onValue(ref(dataBase, "books/"),async data => {
   if(data.exists()){
 
     document.querySelector('#new_swiper_books').innerHTML = ""
+    
+
     for(let keys in data.val()){
-      if(data.val()[keys].new == "true"){
+        if(await setNewLabel(data.val()[keys].title) != ""){
+          document.querySelector('#new_swiper_books').innerHTML += `
+          <div class="swiper-slide">
+            <div class="catalog_swiper_card">
+            <span>New</span>
+            <img class="swiper_img" src="${data.val()[keys].imageURL}" alt="">
+            <h3 class="swiper_book">${data.val()[keys].title}</h3>
+            <button class="swiper_btn">Read More</button>
+            </div>
+          </div> `
+          new_release_swiper.update();
+          updateReadMoreButtons()
+        }
         
-        document.querySelector('#new_swiper_books').innerHTML += `
-        <div class="swiper-slide">
-          <div class="catalog_swiper_card">
-          ${setNewLabel(data.val()[keys].title)}
-          <img class="swiper_img" src="${data.val()[keys].imageURL}" alt="">
-          <h3 class="swiper_book">${data.val()[keys].title}</h3>
-          <button class="swiper_btn">Read More</button>
-          </div>
-        </div> `
-        new_release_swiper.update();
-      }
     }
   }
 })
@@ -235,33 +218,21 @@ const selected_release_swiper = new Swiper(".swiper.selected_swiper_catalog", {
 
 
 function showBestSellers(){
-  onValue(ref(dataBase, 'books/'), result => {
+  onValue(ref(dataBase, 'books/'),async result => {
     if(result.exists()){
       document.querySelector('#selected_swiper_books').innerHTML = ""
       for(let key in result.val()){
         if(result.val()[key].counter >= 10){
-          if(result.val()[key].new == "true"){
             document.querySelector('#selected_swiper_books').innerHTML += `
             <div class="swiper-slide">
               <div class="catalog_swiper_card">
-              ${setNewLabel(result.val()[key].title)}
+              ${await setNewLabel(result.val()[key].title)}
               <img class="swiper_img" src="${result.val()[key].imageURL}" alt="">
               <h3 class="swiper_book">${result.val()[key].title}</h3>
               <button class="swiper_btn">Read More</button>
               </div>
             </div>
             `
-          }else{
-            document.querySelector('#selected_swiper_books').innerHTML += `
-            <div class="swiper-slide">
-              <div class="catalog_swiper_card">
-              <img class="swiper_img" src="${result.val()[key].imageURL}" alt="">
-              <h3 class="swiper_book">${result.val()[key].title}</h3>
-              <button class="swiper_btn">Read More</button>
-              </div>
-            </div>
-            `
-          }
           selected_release_swiper.update()
           updateReadMoreButtons()
         }
@@ -331,7 +302,6 @@ async function updateReadMoreButtons(){
   document.querySelectorAll('.swiper_btn')
   .forEach(function(item) {
     item.addEventListener('click', function(){
-    
       var selectedBook = item.parentNode.querySelector('.swiper_book').innerHTML;
       get(ref(dataBase, `books/${selectedBook}/`)).then(async data => {
         if(data.exists()){
