@@ -19,3 +19,7 @@
     font-family: "Nunito";
     src: url(../fonts/Nunito_Sans/NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.ttf);
 }
+@font-face {
+    font-family: "Rubik";
+    src: url(../fonts/Rubik/Rubik-VariableFont_wght.ttf)
+}

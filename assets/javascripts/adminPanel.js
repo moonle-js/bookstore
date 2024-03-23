@@ -115,11 +115,6 @@ function detectUser(valueFromPrompt, passwordFromPrompt){
                                 <input type="text" id="bookReleaseDate" placeholder="Add release date">
                             </div>
 
-                            <div id="newOrNotDiv">
-                                <label for="newOrNot">New</label>
-                                <input type="checkbox" id="newOrNot">
-                            </div>
-
                             <div id="typeadding">
                                 <!-- Adding new type of -->
                                 <div id="typeAddingBlock">

@@ -299,14 +299,20 @@ onValue(ref(dataBase, 'books/'),result => {
 
 showBestSellers()
 
-// Sending page
+// Sending name of book to read more page
 
-function updateReadMoreButtons(){
+async function updateReadMoreButtons(){
   document.querySelectorAll('.swiper_btn')
   .forEach(function(item) {
     item.addEventListener('click', function(){
     
       var selectedBook = item.parentNode.querySelector('.swiper_book').innerHTML;
+      get(ref(dataBase, `books/${selectedBook}/`)).then(async data => {
+        if(data.exists()){
+          var counter = parseInt(data.val().counter);
+          await set(ref(dataBase, `books/${selectedBook}/counter`), (counter + 1))
+        }
+      })
     
       window.location.href = '/assets/pages/readmore.html?selectedBook=' + encodeURIComponent(selectedBook);
     })

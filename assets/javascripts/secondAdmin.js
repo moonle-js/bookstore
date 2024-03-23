@@ -102,12 +102,7 @@ async function addBookToFireBase(bookName, author, imageURL, descriptionOf, rele
                 await set(ref(dataBase, `books/${bookName.value.trim()}/dateRelease`), `${releaseDate.value}`);
                 await set(ref(dataBase, `books/${bookName.value.trim()}/isShown`), `false`);
                 await set(ref(dataBase, `books/${bookName.value.trim()}/category`), `${typeOfBook.value}`);
-
-                if(document.querySelector('#newOrNot').checked){
-                    await set(ref(dataBase, `books/${bookName.value.trim()}/new`), `true`);
-                }else{
-                    await set(ref(dataBase, `books/${bookName.value.trim()}/new`), `false`);
-                }
+                await set(ref(dataBase, `books/${bookName.value.trim()}/counter`), 0);
             }catch(error){
                 console.log(error)
             }

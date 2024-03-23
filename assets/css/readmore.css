@@ -15,10 +15,11 @@ main{
     min-height: 60vh;
     background: var(--body_background);
 }
-    #mainSEction{
+    #mainSEction,
+    .comment_content{
         display: flex;
-        justify-content: space-evenly;
-        width: 80%;
+        justify-content: space-between;
+        width: 70%;
         height: 100%;
         align-items: center;
     }
@@ -27,7 +28,7 @@ main{
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
-            width: 40%;
+            width: 50%;
             height: 100%;
             row-gap: 20px;
         }
@@ -47,7 +48,7 @@ main{
             width: 40%;
             height: 80%;
             display: flex;
-            justify-content: center;
+            justify-content: flex-end;
             align-items: center;
         }
             #rightSide img{
@@ -87,11 +88,15 @@ main{
 
 /* comment*/
  .comment_content {
-    width: 50%;
-    margin: 0 0 50px 70px;
- }
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
 
  #commentInput {
+    width: 30%;
+    max-width: 650px;
     flex: 1;
     box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.25);
     border: none;
@@ -109,9 +114,9 @@ main{
 
 
 .comment_form{
-    
     display: flex;
     flex-direction: row;
+    width: 100%;
   }
   .comment_form input{
     max-width: 635px;
@@ -133,13 +138,16 @@ main{
     background-color: #E16A00;
     width: 60px;
     border-radius: 5px;
+    cursor: pointer;
     border: none;
     outline: none;
     height: 60px;
   }
-
-  .comment_box li  {
-    
+  .comment_box{
+    width: 100%;
+    max-width: 710px;
+  }
+  .comment_box .comment{
     flex-shrink: 0;
     border-radius: 5px;
     background-color: #ffff;
@@ -148,31 +156,45 @@ main{
     justify-content: center;
     gap: 14px;
     flex-direction: column;
-    padding: 28px 18px;
-    margin-bottom: 43px;
+    margin-top: 43px;
   }
  
+  .senderAndTime{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: var(--orange_background);
+    padding: 18px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+  }
+.senderAndTime *{
+    color: var(--white_text);
+    font-size: 1em;
+    text-transform: capitalize;
+}
  
- 
-  .sender h4{
-    color: #232323;
-    font-family: 'Roboto';
-    font-size: 16px;
+  .sender span{
+    font-family: 'Rubik';
     font-style: normal;
     font-weight: 500;
     line-height: normal;
   }
+
   .addedTime {
-    color: #232323;
     font-family: 'Rubik';
-    font-size: 16px;
     font-style: normal;
     font-weight: 400;
     line-height: 24px; /* 150% */
   }
   .message {
-    color: #232323;
+    color: var(--comment_text);
     font-family: "Rubik";
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 10px;
     font-size: 16px;
     font-style: normal;
     font-weight: 400;

@@ -93,13 +93,25 @@ function showAnonimComments() {
 
         for(let keys in response.val()){
             commentsBlock.innerHTML += `
-                <li>
-                    <div class="user_comment">
-                        <h4 id="anonimPerson">${response.val()[keys].sender}</h4>
-                        <span id= "commment">${response.val()[keys].comment}</span>
-                        <span id= "dateTime">${response.val()[keys].timeADded}</span>
+                <div class="comment">
+                    <div class="senderAndTime">
+                        <div class="sender">
+                            <span>
+                                ${response.val()[keys].sender}
+                            </span>
+                        </div>
+                        <div class="addedTime">
+                            <span>
+                                ${response.val()[keys].timeADded}
+                            </span>
+                        </div>
                     </div>
-                </li>
+                    <div class="message">
+                        <span>
+                            ${response.val()[keys].comment}
+                        </span>
+                    </div>
+                </div>
                 `
         }
 
