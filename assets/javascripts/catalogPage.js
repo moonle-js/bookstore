@@ -249,34 +249,21 @@ function showSelectedCategory(categoryName){
       document.querySelector('#category_swiper').innerHTML = `
           <h2 class="catalog_title">${data.val()}</h2>
         `
-      onValue(ref(dataBase, 'books/'), result => {
+      onValue(ref(dataBase, 'books/'),async result => {
         if(result.exists()){
           document.querySelector('#selected_swiper_books').innerHTML = ""
           for(let key in result.val()){
             if(result.val()[key].category == categoryName){
-              if(result.val()[key].new == "true"){
                 document.querySelector('#selected_swiper_books').innerHTML += `
                 <div class="swiper-slide">
                   <div class="catalog_swiper_card">
-                  <span>New</span>
+                  ${await setNewLabel(result.val()[key].title)}
                   <img class="swiper_img" src="${result.val()[key].imageURL}" alt="">
                   <h3 class="swiper_book">${result.val()[key].title}</h3>
                   <button class="swiper_btn">Read More</button>
                   </div>
                 </div> 
                 `
-              }else{
-                document.querySelector('#selected_swiper_books').innerHTML += `
-                <div class="swiper-slide">
-                  <div class="catalog_swiper_card">
-                  ${setNewLabel(result.val()[key].title)}
-                  <img class="swiper_img" src="${result.val()[key].imageURL}" alt="">
-                  <h3 class="swiper_book">${result.val()[key].title}</h3>
-                  <button class="swiper_btn">Read More</button>
-                  </div>
-                </div> 
-                `
-              }
               
               selected_release_swiper.update()
               updateReadMoreButtons()
