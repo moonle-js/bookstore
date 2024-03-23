@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/chatBox.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>ChatBox</title>
+
+</head>
+<body>
+    <button class="open-button" onclick="openForm()"><i class="fas fa-comment icon"></i></button>
+
+<div class="chat-popup" id="myForm">
+  <form action="" class="form-container">
+    <h1>Chat <br><i class="fas fa-comment"></i></h1>
+
+    <label for="msg"><b></b></label>
+    <textarea placeholder="Type message.." name="msg" required></textarea>
+
+    <button type="submit" class="btn">Send</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+
+<script src="../javascripts/chatBox.js"></script>
+</body>
+</html>
