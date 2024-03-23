@@ -86,7 +86,7 @@ function searchBooks(element) {
 
 // adding book info to firebase
 async function addBookToFireBase(bookName, author, imageURL, descriptionOf, releaseDate, typeOfBook){
-    var dateSelector = /\d{2}\-\d{2}\-\d{4}/
+    var dateSelector = /\d{2}\-\d{1,2}\-\d{4}/
     if(bookName.value.trim() &&
         author.value.trim() &&
         imageURL.value.trim() && 
@@ -96,6 +96,7 @@ async function addBookToFireBase(bookName, author, imageURL, descriptionOf, rele
         releaseDate.value.match(dateSelector)){
         console.log('getdi')
             try{
+                console.log(releaseDate.value)
                 await set(ref(dataBase, `books/${bookName.value.trim()}/imageURL`), `${imageURL.value}`);
                 await set(ref(dataBase, `books/${bookName.value.trim()}/title`), `${bookName.value}`);
                 await set(ref(dataBase, `books/${bookName.value.trim()}/author`), `${author.value}`);

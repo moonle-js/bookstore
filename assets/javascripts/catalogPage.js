@@ -151,9 +151,11 @@ function setNewLabel(bookName){
   var period;
   get(ref(dataBase, `books/${bookName}`)).then(result => {
     if(result.exists()){
+      console.log(result.val().dateRelease)
       var addedTime = new Date(`${result.val().dateRelease}`)
+
       var currentTime = new Date()
-      console.log(addedTime)
+      console.log(addedTime.toDateString())
       console.log(currentTime)
 
       period = currentTime.getTime() - addedTime.getTime()
@@ -242,7 +244,7 @@ function showBestSellers(){
             document.querySelector('#selected_swiper_books').innerHTML += `
             <div class="swiper-slide">
               <div class="catalog_swiper_card">
-              ${setNewLabel(data.val()[key].title)}
+              ${setNewLabel(result.val()[key].title)}
               <img class="swiper_img" src="${result.val()[key].imageURL}" alt="">
               <h3 class="swiper_book">${result.val()[key].title}</h3>
               <button class="swiper_btn">Read More</button>
