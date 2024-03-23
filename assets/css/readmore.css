@@ -88,17 +88,11 @@ main{
 
 /* comment*/
  .comment_content {
-<<<<<<< HEAD
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
 }
-=======
-    width: 80%;
-    margin: 0 0 50px 70px;
- }
->>>>>>> 0d7fccec3cf1ae8e0f74a3845500d0fc10f4b0e7
 
  #commentInput {
     width: 30%;
@@ -109,7 +103,6 @@ main{
     border-radius: 4px;
     padding-left: 30px;
     font-family: "Roboto";
-    
  }
  input::placeholder {
     font-family: "Roboto";
@@ -123,12 +116,7 @@ main{
 .comment_form{
     display: flex;
     flex-direction: row;
-<<<<<<< HEAD
     width: 100%;
-=======
-    margin-bottom: 43px;
-   
->>>>>>> 0d7fccec3cf1ae8e0f74a3845500d0fc10f4b0e7
   }
   .comment_form input{
     max-width: 635px;
@@ -155,25 +143,18 @@ main{
     outline: none;
     height: 60px;
   }
-<<<<<<< HEAD
   .comment_box{
     width: 100%;
     max-width: 710px;
   }
   .comment_box .comment{
-=======
-
-  .comment_box li  {
-    width: 600px;
-    height: 167px;
->>>>>>> 0d7fccec3cf1ae8e0f74a3845500d0fc10f4b0e7
     flex-shrink: 0;
     border-radius: 5px;
     background-color: #ffff;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     display: flex;
     justify-content: center;
-    row-gap: 14px;
+    gap: 14px;
     flex-direction: column;
     margin-top: 43px;
   }
@@ -194,33 +175,19 @@ main{
     text-transform: capitalize;
 }
  
-<<<<<<< HEAD
   .sender span{
     font-family: 'Rubik';
-=======
- 
-  .user_comment h4{
-    color: #232323;
-    font-family: 'Roboto';
-    font-size: 16px;
->>>>>>> 0d7fccec3cf1ae8e0f74a3845500d0fc10f4b0e7
     font-style: normal;
     font-weight: 500;
     line-height: normal;
   }
-<<<<<<< HEAD
 
   .addedTime {
-=======
-  .user_comments span{
-    color: #232323;
->>>>>>> 0d7fccec3cf1ae8e0f74a3845500d0fc10f4b0e7
     font-family: 'Rubik';
     font-style: normal;
     font-weight: 400;
     line-height: 24px; /* 150% */
   }
-<<<<<<< HEAD
   .message {
     color: var(--comment_text);
     font-family: "Rubik";
@@ -233,9 +200,6 @@ main{
     font-weight: 400;
     line-height: 24px; /* 150% */
   }
-=======
-
->>>>>>> 0d7fccec3cf1ae8e0f74a3845500d0fc10f4b0e7
 
 
 .socMedias{
