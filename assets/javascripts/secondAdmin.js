@@ -389,8 +389,16 @@ onValue(ref(dataBase, 'chat'), async data => {
     if(data.exists()){
         document.querySelector('#messagesFromUser').innerHTML = ""
         for(let keys in data.val()){
+            var nameOFSender = '';
+            await get(ref(dataBase, `users/joinedUsers/${data.val()[keys].sender}`)).then(result => {
+                if(result.exists()){
+                    nameOFSender = result.val().name
+                }else{
+                    nameOFSender = 'admin'
+                }
+            })
             document.querySelector('#messagesFromUser').innerHTML += `
-                ${data.val()[keys].message}
+                <div>${nameOFSender} : ${data.val()[keys].message}</div>
             `
         }
     }
@@ -404,5 +412,6 @@ document.querySelector('#sendAdminMessage').addEventListener('click', function()
         }
         var snapshot = push(ref(dataBase, 'chat')).key
         set(ref(dataBase, `chat/${snapshot}`), messageInfo)
+        document.querySelector('#messageContext').value = ""
     }
 })

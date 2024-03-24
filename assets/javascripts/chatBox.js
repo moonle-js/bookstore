@@ -27,8 +27,11 @@ var messageContent = document.querySelector('#messageContent')
           if(localStorage.getItem('bookstoreUser') && messageContent.value.trim()){
             await set(ref(dataBase, `joinedUser`), localStorage.getItem('bookstoreUser'))
             var snapshot = push(ref(dataBase, 'chat')).key
-            await set(ref(dataBase, `chat/${snapshot}/message`), messageContent.value.trim())
-            await set(ref(dataBase, `chat/${snapshot}/sender`), localStorage.getItem('bookstoreUser'))
+            var addingData = {
+              message: `${messageContent.value.trim()}`,
+              sender: `${localStorage.getItem('bookstoreUser')}`
+            }
+            await set(ref(dataBase, `chat/${snapshot}/`), addingData)
           }      
         }else{
           alert('server is full')
@@ -41,4 +44,27 @@ var messageContent = document.querySelector('#messageContent')
   window.addEventListener('beforeunload', function(){
     set(ref(dataBase, 'joinedUser'), '0')
     set(ref(dataBase, 'chat'), '0')
+  })
+
+  onValue(ref(dataBase, 'chat'),async data => {
+    if(data.exists()){
+      document.querySelector('#allMessages').innerHTML = " "
+
+      for(let keys in data.val()){
+        if(data.val()[keys] == "0"){
+          document.querySelector('#allMessages').innerHTML = " "
+        }else{
+          var nameOFSender = '';
+          if(data.val()[keys].sender == "admin"){
+            nameOFSender = "Admin"
+          }else{
+            nameOFSender = 'Siz'
+          }
+          document.querySelector('#allMessages').innerHTML += `
+              <div>${nameOFSender} : ${data.val()[keys].message}</div>
+          `
+        }
+        
+      }
+    }
   })
