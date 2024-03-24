@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="./assets/css/index.css">
     <!-- Icon image -->
     <link rel="icon" href="./assets/images/adminPanel/booksSmall.png">
+    <!-- Font awesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 
     <title>Bookstore</title>
 </head>
@@ -320,7 +323,22 @@
 </footer>
 
 
+<section id="chatSection">
+    <button class="open-button">Chat<i class="fas fa-comment "></i></button>
 
+    <div class="chat-popup" id="myForm">
+        <form action="" class="form-container">
+        <h1>Chat <i class="fas fa-comment"></i></h1>
+
+        <textarea placeholder="Type message.." name="msg" required id="messageContent"></textarea>
+
+        <button type="submit" id="sendMessageToChat" class="btn">Send</button>
+        <button type="button" class="btn cancel">Close</button>
+        </form>
+    </div>
+</section>
+
+<script src="./assets/javascripts/chatBox.js" type="module"></script>
 <script src="./assets/javascripts/joinUs.js" type="module"></script>
 <script src="./assets/javascripts/getUserName.js" type="module"></script>
 <script src="./assets/javascripts/index.js" type="module"></script>

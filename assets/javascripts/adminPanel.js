@@ -318,6 +318,20 @@ function detectUser(valueFromPrompt, passwordFromPrompt){
 
                     <!-- Online Users -->
 
+                    <!-- Chatting with user -->
+
+                    <div id="chat">
+                        <h4>
+                            Chat
+                        </h4>
+
+                        <div id="messagesFromUser"></div>
+                        <input type="text" id="messageContext">
+                        <button id="sendAdminMessage">Send</button>
+                    </div>
+
+                    <!-- Chat -->
+
                 </div>
             </div>
                 `

@@ -1,6 +1,6 @@
 // Importing database and functions from firebase and module js file
 import dataBase from "./database.mjs";
-import {set, get, ref, onValue, remove} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
+import {set, get, ref, onValue, remove, push} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
 var refDB = ref(dataBase);
 
 // Google Books API
@@ -381,4 +381,28 @@ document.querySelector('#sendAboutForm').addEventListener('click', function(e){
         }else{
             alert('please fill prompts')
         }
+})
+
+// Getting messages from user
+
+onValue(ref(dataBase, 'chat'), async data => {
+    if(data.exists()){
+        document.querySelector('#messagesFromUser').innerHTML = ""
+        for(let keys in data.val()){
+            document.querySelector('#messagesFromUser').innerHTML += `
+                ${data.val()[keys].message}
+            `
+        }
+    }
+})
+
+document.querySelector('#sendAdminMessage').addEventListener('click', function(){
+    if(document.querySelector('#messageContext').value.trim()){
+        var messageInfo = {
+            sender: "admin",
+            message: document.querySelector('#messageContext').value.trim()
+        }
+        var snapshot = push(ref(dataBase, 'chat')).key
+        set(ref(dataBase, `chat/${snapshot}`), messageInfo)
+    }
 })

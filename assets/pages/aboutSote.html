@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="../css/aboutStore.css">
+    <!-- Font awesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <script src="../javascripts/aboutStore.js" type="module"></script>
     <title>About Store</title>
@@ -223,6 +225,25 @@
         </div>
     </div>
 </footer>
+
+
+<section id="chatSection">
+    <button class="open-button">Chat<i class="fas fa-comment "></i></button>
+
+    <div class="chat-popup" id="myForm">
+        <form action="" class="form-container">
+        <h1>Chat <i class="fas fa-comment"></i></h1>
+
+        <label for="msg"><b></b></label>
+        <textarea placeholder="Type message.." name="msg" required id="messageContent"></textarea>
+
+        <button type="submit" class="btn">Send</button>
+        <button type="button" class="btn cancel">Close</button>
+        </form>
+    </div>
+</section>
+
+<script src="../javascripts/chatBox.js" type="module"></script>
 
 <script src="../javascripts/joinUs.js" type="module"></script>
 <script src="../javascripts/getUserName.js" type="module"></script>
