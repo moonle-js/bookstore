@@ -258,18 +258,17 @@
     </div>
 </footer>
 
-
 <section id="chatSection">
     <button class="open-button">Chat<i class="fas fa-comment "></i></button>
 
     <div class="chat-popup" id="myForm">
         <form action="" class="form-container">
-            <h1>Chat <i class="fas fa-comment"></i></h1>
+        <h1>Chat <i class="fas fa-comment"></i></h1>
+        <div id="allMessages"></div>
+        <input type="text" placeholder="Type message.." name="msg" required id="messageContent">
 
-            <textarea placeholder="Type message.." name="msg" id="messageContent" required></textarea>
-
-            <button type="submit" id="sendMessageToChat" class="btn">Send</button>
-            <button type="button" class="btn cancel">Close</button>
+        <button type="submit" id="sendMessageToChat" class="btn">Send</button>
+        <button type="button" class="btn cancel">Close</button>
         </form>
     </div>
 </section>

@@ -2,10 +2,20 @@ import dataBase from "./database.mjs";
 import {set, get, ref, push, onValue, remove} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js"
 
 function openForm() {
-    document.getElementById("myForm").style.display = "block";
+    get(ref(dataBase, 'joinedUser')).then(result => {
+      if(result.exists()){
+        if(result.val() == "0"){
+          set(ref(dataBase, 'joinedUser'), 1)
+          document.getElementById("myForm").style.display = "block";
+        }else{
+          alert('server is full')
+        }
+      }
+    })
   }
   
 function closeForm() {
+  set(ref(dataBase, "joinedUser"), "0")
   document.getElementById("myForm").style.display = "none";
 }
 
@@ -20,24 +30,27 @@ var messageContent = document.querySelector('#messageContent')
 
   sendMessageToChat.addEventListener('click',async function(e){
     e.preventDefault();
-    
-    await get(ref(dataBase, 'joinedUser')).then(async data => {
-      if(data.exists()){
-        if(data.val() == "0" || data.val() == localStorage.getItem('bookstoreUser')){
-          if(localStorage.getItem('bookstoreUser') && messageContent.value.trim()){
-            await set(ref(dataBase, `joinedUser`), localStorage.getItem('bookstoreUser'))
-            var snapshot = push(ref(dataBase, 'chat')).key
-            var addingData = {
-              message: `${messageContent.value.trim()}`,
-              sender: `${localStorage.getItem('bookstoreUser')}`
-            }
-            await set(ref(dataBase, `chat/${snapshot}/`), addingData)
-          }      
-        }else{
-          alert('server is full')
+    if(localStorage.getItem('bookstoreUser')){
+      await get(ref(dataBase, 'joinedUser')).then(async data => {
+        if(data.exists()){
+          if(data.val() == "1" || data.val() == localStorage.getItem('bookstoreUser')){
+            if(localStorage.getItem('bookstoreUser') && messageContent.value.trim()){
+              await set(ref(dataBase, `joinedUser`), localStorage.getItem('bookstoreUser'))
+              var snapshot = push(ref(dataBase, 'chat')).key
+              var addingData = {
+                message: `${messageContent.value.trim()}`,
+                sender: `${localStorage.getItem('bookstoreUser')}`
+              }
+              await set(ref(dataBase, `chat/${snapshot}/`), addingData)
+              document.querySelector('#messageContent').value = ''
+            }      
+          }
         }
-      }
-    })
+      })
+    }else{
+      document.querySelector('#join_us_panel').style.display = "flex"
+    }
+    
     
   })
 
