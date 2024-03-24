@@ -78,6 +78,7 @@ addComment.addEventListener('click',async function(e){
             }
             show()
         }
+        document.querySelector('#commentInput').value = ""
     }
      
 });

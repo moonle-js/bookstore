@@ -170,4 +170,17 @@ main{
             width: 60px;
             height: 60px;
         }
+    .sec_1{
+        flex-direction: column;
+        row-gap: 5px;
+    }
+    .leftSide,
+    .rightSide{
+        width: 90%;
+        height: 200px;
+        margin-top: 0;
+    }
+    .leftSide{
+        min-height: 150px !important;
+    }
 }
