@@ -70,12 +70,15 @@ var messageContent = document.querySelector('#messageContent')
           var nameOFSender = '';
           if(data.val()[keys].sender == "admin"){
             nameOFSender = "Admin"
+            document.querySelector('#allMessages').innerHTML += `
+              <div class="messsage">${nameOFSender} : ${data.val()[keys].message}</div>
+            `
           }else{
             nameOFSender = 'Siz'
+            document.querySelector('#allMessages').innerHTML += `
+              <div style="align-self:flex-end">${nameOFSender} : ${data.val()[keys].message}</div>
+            `
           }
-          document.querySelector('#allMessages').innerHTML += `
-              <div>${nameOFSender} : ${data.val()[keys].message}</div>
-          `
         }
         
       }

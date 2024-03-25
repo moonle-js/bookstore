@@ -225,7 +225,7 @@ function detectUser(valueFromPrompt, passwordFromPrompt){
                                     <th>#</th>
                                     <th>Title</th>
                                     <th >Image</th>
-                                    <th>Description</th>
+                                    <th class="tableDescription">Description</th>
                                     <th>Category</th>
                                     <th>Author</th>
                                     <th>Remove</th>
@@ -337,10 +337,12 @@ function detectUser(valueFromPrompt, passwordFromPrompt){
 
                     <!-- Chat -->
 
+                    
                 </div>
             </div>
-                `
 
+            
+                `
                 document.querySelector('#navigationSide').innerHTML += `
 
                 <div id="closeNavigation">

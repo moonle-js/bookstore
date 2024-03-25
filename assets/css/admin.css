@@ -4,7 +4,9 @@
 @import url(./reset.css);
 
 /* Actual codes for page */
-
+body{
+    position: relative;
+}
 main{
     font-size: 14px;
     display: flex;
@@ -781,26 +783,57 @@ main{
                         cursor: pointer;
                     }
 
+                    #messageModal{
+                        width: 100vw !important;
+                        min-width: 100vw !important;
+                        height: 100vh !important;
+                        min-height: 100vh !important;
+                        z-index: 999999999999;
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        border: 2px solid purple;
+                        display: none;
+                        justify-content: center;
+                        align-items: center;
+                        background: transparent;
+                    }
+                        #messageModal span{
+                            background: var(--red_background);
+                            color: var(--white_text);
+                            font-size: 2em;
+                            font-weight: 900;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            width: 100%;
+                            height: 100%;
+                        }
+
 #contactUsSection,
 #aboutUsFromFirebaseSection,
 #onlineUsers{
     margin-bottom: 50px;
 }
+
 @media screen and (max-width: 700px){
     #mainContentForAdmin{
         padding-left: 10px !important;
+    }
+    .tableDescription{
+        display: none !important;
     }
     #closeNavigation {
         display: flex;
     }
     table{
         max-width: 100% !important;
+        overflow: hidden !important;
         width: 100% !important;
     }
     td, th{
         font-size: .8em;
         max-width: 40px !important;
-        overflow: hidden;
         width: auto;
     }
     #bookFormSection,
@@ -826,7 +859,6 @@ main{
     #adminLogo{
         margin-right: -10px !important;
     }
-
     #loginCard{
         width: 90%;
         position: absolute;

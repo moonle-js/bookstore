@@ -106,6 +106,13 @@ async function addBookToFireBase(bookName, author, imageURL, descriptionOf, rele
                 await set(ref(dataBase, `books/${bookName.value.trim()}/isShown`), `false`);
                 await set(ref(dataBase, `books/${bookName.value.trim()}/category`), `${typeOfBook.value}`);
                 await set(ref(dataBase, `books/${bookName.value.trim()}/counter`), 0);
+                document.querySelector('#messageModal').innerHTML = `
+                    <span>Book was added succesfully</span>
+                `
+                document.querySelector('#messageModal').style.display = 'flex'
+                setTimeout(function(){
+                    document.querySelector('#messageModal').style.display = 'none'
+                },2000)
             }catch(error){
                 console.log(error)
             }
@@ -180,7 +187,7 @@ function getBookInformation(){
                                 <td>${peremennaya}</td>
                                 <td class="titleAndImage">${data.val().title}</td>
                                 <td><img src="${data.val().imageURL}" style="width: 30px; height:30px"></td>
-                                <td >${data.val().description}</td>
+                                <td class="tableDescription">${data.val().description}</td>
                                 <td>${data.val().category}</td>
                                 <td>${data.val().author}</td>
                                 <td class="removable" id="${data.val().title}"><img src="./assets/images/adminPanel/trash.svg"></td>
@@ -393,13 +400,17 @@ onValue(ref(dataBase, 'chat'), async data => {
             await get(ref(dataBase, `users/joinedUsers/${data.val()[keys].sender}`)).then(result => {
                 if(result.exists()){
                     nameOFSender = result.val().name
+                    document.querySelector('#messagesFromUser').innerHTML += `
+                        <div>${nameOFSender} : ${data.val()[keys].message}</div>
+                    `
                 }else{
                     nameOFSender = 'admin'
+                    document.querySelector('#messagesFromUser').innerHTML += `
+                        <div style="align-self: flex-end">${nameOFSender} : ${data.val()[keys].message}</div>
+                    `
                 }
             })
-            document.querySelector('#messagesFromUser').innerHTML += `
-                <div>${nameOFSender} : ${data.val()[keys].message}</div>
-            `
+            
         }
     }
 })
