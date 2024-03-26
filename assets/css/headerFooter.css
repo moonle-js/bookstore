@@ -236,7 +236,101 @@ header *{
             .enable{
                 display: flex;
             }
-
+           /* Sponsors section */
+           #sponsorSection{
+            z-index: 500;
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            right: 20px;
+            bottom: 150px;
+            width: 100px;
+            height: 100px;
+            border-radius: 100%;
+            background: var(--orange_background);
+            animation: zipZip 4s infinite;
+        }
+            .sponsorsText{
+                font-size: 1em;
+                font-weight: 900;
+                font-family: "Montserrat";
+                color: var(--white_text);
+            }
+        #sponsors{
+            z-index: 500;
+            transition: .4s all ease;
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            top: 0;
+            right: 0;
+            width: 390px;
+            height: 100vh;
+            background: var(--red_background);
+            padding: 20px;
+            transform: translateX(390px);
+        }
+            #closeButton{
+                width: 150px;
+                height: 40px;
+                color: var(--white_text);
+                margin: 0 auto;
+                background: var(--orange_background);
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1em;
+                font-family: "Montserrat";
+                font-weight: 600;
+                margin-bottom: 30px;
+            }
+            #sponsorsList{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+            }
+                #sponsorsList ul{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    align-items: center;
+                    row-gap: 20px;
+                }
+                        #sponsorsList ul li a{
+                            color: var(--white_text);
+                            font-family: "Montserrat";
+                            font-weight: 600;
+                            text-decoration: none;
+                        }
+        
+        @keyframes zipZip{
+            0%{
+                transform: translateY(0px);
+            }
+            10%{
+                transform: translateY(-50px);
+            }
+            20%{
+                transform: translateY(0px);
+            }
+            40%{
+                transform: translateY(-30px);
+            }
+            60%{
+                transform: translateY(0px);
+            }
+            70%{
+                transform: translateY(-10px);
+            }
+            100%{
+                transform: translateY(0px);
+            }
+        }
     
 .snipp{
     align-self: center;
