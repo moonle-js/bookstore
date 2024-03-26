@@ -302,10 +302,19 @@ header *{
                     row-gap: 20px;
                 }
                         #sponsorsList ul li a{
+                            display: flex;
+                            flex-direction: column;
+                            row-gap: 10px;
+                            align-items: center;
                             color: var(--white_text);
                             font-family: "Montserrat";
                             font-weight: 600;
                             text-decoration: none;
+                        }
+                        #sponsorsList ul li a img{
+                            width: 150px;
+                            height: 150px;
+                            border-radius: 100%;
                         }
         
         @keyframes zipZip{

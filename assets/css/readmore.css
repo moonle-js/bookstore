@@ -234,7 +234,8 @@ main{
     display: flex;
     align-self: flex-start;
     margin-left: 15%;
-    width: 500px;
+    width: 100%;
+    max-width: 500px;
     flex-direction: column;
     row-gap: 20px;
 }
@@ -242,6 +243,7 @@ main{
         font-family: "Montserrat";
         font-size: 1.2em;
         font-weight: 600;
+        width: 100%;
     }
         .languages{
             display: flex;
@@ -263,5 +265,20 @@ main{
     .mainInfos{
         flex-direction: column;
         row-gap: 20px;
+    }
+    .translationBlock{
+        width: 200px !important;
+        margin: 2px solid red;
+    }
+    .languages{
+        flex-direction: column;
+        row-gap: 10px;
+        width: 250px;
+    }
+    .languages button{
+        width: 100%;
+    }
+    #rightSide img{
+        width: 100% !important;
     }
 }
