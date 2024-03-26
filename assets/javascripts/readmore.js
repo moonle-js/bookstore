@@ -17,7 +17,7 @@ window.addEventListener('load', async function(){
                             <h1>
                                 ${data.val()[key].title}
                             </h1>
-                            <p>
+                            <p class="descriptionText" id="en">
                                 ${data.val()[key].description}
                             </p>
                         </div>
@@ -118,3 +118,38 @@ function showAnonimComments() {
 
     });
 };
+
+
+// translation API
+async function translateDescription(langFrom, langTo, translateThis){
+    const url = 'https://text-translator2.p.rapidapi.com/translate';
+    const options = {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded',
+            'X-RapidAPI-Key': '3bac3f8044mshd0e9722441068afp1b54a0jsnf3a95cffb192',
+            'X-RapidAPI-Host': 'text-translator2.p.rapidapi.com'
+        },
+        body: new URLSearchParams({
+            source_language: `${langFrom}`,
+            target_language: `${langTo}`,
+            text: translateThis
+        })
+    };
+    
+        try{
+            const response = await fetch(url, options);
+            const result = await response.json();
+            document.querySelector('.descriptionText').innerHTML = `${result.data.translatedText}`
+            document.querySelector('.descriptionText').id = `${langTo}`
+        }catch(error){
+            console.log('some error')
+        }
+}
+
+document.querySelectorAll('.translateButton')
+    .forEach(function(item){
+        item.addEventListener('click', function(){
+            translateDescription(document.querySelector('.descriptionText').id, item.id, document.querySelector('.descriptionText').innerHTML)
+        })
+    })

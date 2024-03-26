@@ -237,6 +237,14 @@ header *{
                 display: flex;
             }
 
+    
+.snipp{
+    align-self: center;
+    margin: 0 auto;
+    mix-blend-mode: multiply;
+    width: 250px;
+    height: 250px;
+  }
 
 /* Footer */
 
