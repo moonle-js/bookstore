@@ -296,8 +296,8 @@ async function updateReadMoreButtons(){
           await set(ref(dataBase, `books/${selectedBook}/counter`), (counter + 1))
         }
       })
-    
-      window.location.href = './assets/pages/readmore.html?selectedBook=' + encodeURIComponent(selectedBook);
+      
+      window.location.href = '/assets/pages/readmore.html?selectedBook=' + encodeURIComponent(selectedBook);
     })
   })
 }
