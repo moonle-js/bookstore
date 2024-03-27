@@ -26,7 +26,7 @@
   /* The popup chat - hidden by default */
   .chat-popup {
     display: none;
-    z-index: 999999999999999;
+    z-index: 999999999999999 !important;
     position: fixed;
     bottom: 25px;
     right: 15px;
