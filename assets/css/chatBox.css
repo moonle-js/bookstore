@@ -39,6 +39,7 @@
 /* Add styles to the form container */
 .form-container {
     max-width: 800px;
+    z-index: 999999999999999;
     padding: 10px;
     min-width: 600px;
     background-color:#FFFAF5;
@@ -47,6 +48,7 @@
   #allMessages{
     width: 100%;
     height: 300px;
+    z-index: 999999999999999;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
@@ -59,6 +61,7 @@
     color: var(--white_text);
   }
   #allMessages div{
+    z-index: 999999999999999;
     padding: 10px;
     border-radius: 15px;
     background: var(--body_background);
