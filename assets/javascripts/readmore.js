@@ -36,7 +36,7 @@ window.addEventListener('load', async function(){
 
 
     document.querySelector('#goBackButton').addEventListener('click', function(){
-        window.location = "bookstore/assets/pages/catalogPage.html"
+        window.location = "/bookstore/assets/pages/catalogPage.html"
     })
     
     
