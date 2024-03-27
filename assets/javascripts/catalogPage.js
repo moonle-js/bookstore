@@ -297,7 +297,7 @@ async function updateReadMoreButtons(){
         }
       })
       
-      window.location.href = '/assets/pages/readmore.html?selectedBook=' + encodeURIComponent(selectedBook);
+      window.location.href = 'bookstore/assets/pages/readmore.html?selectedBook=' + encodeURIComponent(selectedBook);
     })
   })
 }
