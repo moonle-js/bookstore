@@ -23,7 +23,7 @@ window.addEventListener('load', function(){
                     item.addEventListener('click', function(){
                         var selectedCategory = item.id;
     
-                        window.location.href = '/assets/pages/catalogPage.html?selectedCategory=' + encodeURIComponent(selectedCategory);
+                        window.location.href = '/bookstore/assets/pages/catalogPage.html?selectedCategory=' + encodeURIComponent(selectedCategory);
                     })
                 })
         }
